@@ -12,10 +12,11 @@
 .Login {
     display: flex;
     flex-direction: column;
+    place-self: center;
 
     max-width: 500px;
     width: 100%;
-    margin: 20px auto;
+    margin-top: 100px;
     padding: 30px 30px;
 
     min-height: 50vh;

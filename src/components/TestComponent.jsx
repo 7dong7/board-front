@@ -2,11 +2,11 @@ import {useApi} from "../api/ApiContext.jsx";
 
 
 const TestComponent = () => {
-    const testRequest = useApi(); // api Context 에서 기본 설정 가져오기
+    const api = useApi(); // api Context 에서 기본 설정 가져오기
 
     const submitHandler = async () => {
         try {
-            const response = await testRequest({
+            const response = await api({
                 url: "/api/test",
                 method: "GET"
             });

@@ -1,3 +1,4 @@
+// === jwt 가 필요한 요청에 대해서 === //
 import axios from "axios";
 
 import { createContext, useContext } from "react";
@@ -8,6 +9,7 @@ const ApiContext = createContext(null);
 // api 생성
 const api = axios.create({
     baseURL: 'http://localhost:8080',
+    headers: { 'Content-Type': 'application/json' },
     withCredentials: true, // 쿠키, 인증정보 포함 요청
 });
 

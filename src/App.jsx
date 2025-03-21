@@ -16,6 +16,7 @@ import {ApiProvider} from "./api/ApiContext.jsx";
 
 // 테스트 컴포넌트
 import TestComponent from "./components/TestComponent.jsx";
+import {PublicApiProvider} from "./api/PublicApi.jsx";
 
 
 
@@ -24,17 +25,17 @@ function App() {
     const location = useLocation();
     const hideHeader = location.pathname === "/login";
 
-
     return (
         <>
             <ApiProvider>
+            <PublicApiProvider>
                 {!hideHeader && <TopNavigationBar/>}
 
-                
                 <Routes>{/* 경로 설정 */}
                     <Route path={"/"} element={<BoardList/>}/>
                     <Route path={"/login"} element={<Login/>}/>
                 </Routes>
+            </PublicApiProvider>
             </ApiProvider>
         </>
     );
