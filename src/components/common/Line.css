@@ -1,0 +1,6 @@
+.Line {
+    display: flex;
+    border: solid 1px #2c3e4f;
+
+    margin: 20px 0;
+}

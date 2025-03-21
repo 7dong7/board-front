@@ -1,0 +1,20 @@
+
+.Header {
+    display: flex;
+}
+
+.Header > h1 {
+    margin:0;
+}
+
+.Header-right {
+    justify-content: end;
+}
+
+.Header-left {
+    justify-content: start;
+}
+
+.Header-center {
+    justify-content: center;
+}
