@@ -1,0 +1,50 @@
+.Posts {
+    display: flex;
+    flex-direction: column;
+
+    margin-top:50px;
+    padding: 0 40px;
+}
+
+.posts-searchBar-section{
+    margin:10px 0;
+}
+
+.posts-body-content-section {
+}
+
+/* 작성글 타이틀 */
+.posts-body-title-section {
+    margin-top: 20px;
+    padding: 10px 0;
+
+    display: flex;
+    background-color: #333333;
+    color: #fdfdfd;
+    font-weight: bold;
+}
+
+.posts-body-title-section > div{
+    text-align: center;
+}
+
+/* 게시글 정보 각각 */
+.posts-body-title-section > div:nth-child(1) { /* postId: 글 번호*/
+    width: 110px;
+}
+
+.posts-body-title-section > div:nth-child(2) { /* title: 글 제목 */
+    flex: 1;
+}
+
+.posts-body-title-section > div:nth-child(3) { /* viewCount: 조회수 */
+    width: 90px;
+}
+
+.posts-body-title-section > div:nth-child(4) { /* nickname: 작성자 닉네임 */
+    width: 130px;
+}
+
+.posts-body-title-section > div:nth-child(5) { /* createdAt: 작성일 */
+    width: 200px;
+}

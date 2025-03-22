@@ -4,7 +4,7 @@ import './App.css'
 import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 
 // 페이지
-import BoardList from "./pages/BoardList.jsx";
+import Posts from "./pages/Posts.jsx";
 import Login from "./pages/Login.jsx";
 
 // 경로 설정
@@ -15,7 +15,6 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import {ApiProvider} from "./api/ApiContext.jsx";
 
 // 테스트 컴포넌트
-import TestComponent from "./components/TestComponent.jsx";
 import {PublicApiProvider} from "./api/PublicApi.jsx";
 
 
@@ -32,7 +31,8 @@ function App() {
                 {!hideHeader && <TopNavigationBar/>}
 
                 <Routes>{/* 경로 설정 */}
-                    <Route path={"/"} element={<BoardList/>}/>
+                    <Route path={"/"} element={<Posts/>}/>
+                    <Route path={"/posts"} element={<Posts/>}/>
                     <Route path={"/login"} element={<Login/>}/>
                 </Routes>
             </PublicApiProvider>

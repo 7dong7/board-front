@@ -1,0 +1,45 @@
+.PostItem {
+    display: flex;
+    transition: 0.1s;
+}
+
+.PostItem:hover {
+    background-color: #e3e3e3;
+    transition: 0.2s;
+}
+
+/* 게시글 정보 공통 */
+.PostItem > div {
+    padding:9px 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+/* 게시글 정보 각각 */
+.PostItem > div:nth-child(1) { /* postId: 글 번호*/
+    width: 110px;
+    text-align: center;
+
+}
+
+.PostItem > div:nth-child(2) { /* title: 글 제목 */
+    flex: 1;
+    cursor: pointer;
+}
+
+.PostItem > div:nth-child(3) { /* viewCount: 조회수 */
+    width: 90px;
+    text-align: center;
+
+}
+
+.PostItem > div:nth-child(4) { /* nickname: 작성자 닉네임 */
+    width: 130px;
+    text-align: center;
+
+}
+
+.PostItem > div:nth-child(5) { /* createdAt: 작성일 */
+    width: 200px;
+    text-align: center;
+
+}
