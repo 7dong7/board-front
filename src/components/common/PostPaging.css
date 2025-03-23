@@ -1,0 +1,31 @@
+/* 페이지 네이션 */
+.PostPaging {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 30px;
+
+    justify-content: center;
+}
+
+.PostPaging > button {
+    all: unset;
+    background-color: white;
+    border: 1px solid #c6c6c7;
+
+    padding: 4px 10px;
+    border-radius: 3px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.PostPaging > button:hover {
+    background-color: rgba(217, 217, 217, 0.91);
+    transition: 0.2s;
+}
+
+.PostPaging > button.active {
+    border: 1px solid #333333;
+    background-color: #333333;
+    font-weight: bold;
+    color:white;
+}

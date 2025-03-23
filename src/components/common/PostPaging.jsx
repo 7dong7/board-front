@@ -1,23 +1,31 @@
+// css
+import "./PostPaging.css";
 
-const PostPaging = ( {postPage, handlePageChange}) => {
 
-    console.log(postPage.currentPage);
+const PostPaging = ( {postPage, pageNumbers, handlePageChange}) => {
+    console.log("PostPaging currentPage:", postPage.currentPage);
+    console.log("PostPaging totalPages:", postPage.totalPages);
     return (
-        <div>
+        <div className={"PostPaging"}>
             <button
-                onClick={() => handlePageChange(postPage.currentPage - 1)}
+                onClick={() => handlePageChange(parseInt(postPage.currentPage) - 1)}
                 disabled={postPage.currentPage === 0}
             >
                 이전
             </button>
-
-            <span>
-                    {postPage.currentPage + 1} / {postPage.totalPages}
-            </span>
-
+            {pageNumbers.map((pageNum) => (
+                <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={String(pageNum) === String(postPage.currentPage) ? 'active' : 'delete'}
+                >
+                    {pageNum + 1} {/* 페이지 UI 번호 */}
+                </button>
+              ))
+            }
             <button
-                onClick={() => handlePageChange(postPage.currentPage + 1)}
-                disabled={postPage.currentPage >= postPage.totalPages - 1}
+                onClick={() => handlePageChange(parseInt(postPage.currentPage) + 1)}
+                disabled={postPage.currentPage >= postPage.totalPages}
             >
                 다음
             </button>

@@ -1,13 +1,10 @@
 // css
 import "./NavButton.css";
-// 네비게이션
-import {useNavigate} from "react-router-dom";
 
-const NavButton = ({className, text, navPath}) => {
-    const nav = useNavigate();
+const NavReloadButton = ({className, text, navPath}) => {
 
     const navEvent = () => {
-        nav(navPath);
+        window.location.href = navPath;
     }
 
     return (
@@ -19,4 +16,4 @@ const NavButton = ({className, text, navPath}) => {
     )
 }
 
-export default NavButton;
+export default NavReloadButton;
