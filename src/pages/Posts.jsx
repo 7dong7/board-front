@@ -113,7 +113,7 @@ const Posts = () => {
         });
         setSearchParams({
             ...currentParams,
-            page: 0,
+            page: '1',
             size: value,
         });
     };
@@ -122,13 +122,14 @@ const Posts = () => {
         const currentParams = Object.fromEntries(searchParams.entries());
         setSearchParams({
             ...currentParams,
+            page: '1',
             searchType: searchState.searchType,
             searchWord: searchState.searchWord,
         });
     }
     // 페이지 이동 ( 페이지 네비게이션을 사용하는 이동 )
     const handlePageChange = (newPage) => {
-        if(newPage >= 0 && newPage < postPage.totalPages + 1) { // page 범위 지정 (실제 사용하는 범위를 벗어나지 못함)
+        if(newPage >= 1 && newPage < postPage.totalPages + 1) { // page 범위 지정 (실제 사용하는 범위를 벗어나지 못함)
             setSearchParams({
                 page: newPage.toString(),
                 searchType: searchParams.get("searchType"),

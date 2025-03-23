@@ -7,7 +7,6 @@ const PostPaging = ( {postPage, pageNumbers, handlePageChange}) => {
         <div className={"PostPaging"}>
             <button
                 onClick={() => handlePageChange(parseInt(postPage.currentPage) - 1)}
-                disabled={postPage.currentPage === 0}
             >
                 이전
             </button>
@@ -23,7 +22,6 @@ const PostPaging = ( {postPage, pageNumbers, handlePageChange}) => {
             }
             <button
                 onClick={() => handlePageChange(parseInt(postPage.currentPage) + 1)}
-                disabled={postPage.currentPage >= postPage.totalPages}
             >
                 다음
             </button>
