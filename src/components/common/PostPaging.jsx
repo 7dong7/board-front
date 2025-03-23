@@ -3,8 +3,6 @@ import "./PostPaging.css";
 
 
 const PostPaging = ( {postPage, pageNumbers, handlePageChange}) => {
-    console.log("PostPaging currentPage:", postPage.currentPage);
-    console.log("PostPaging totalPages:", postPage.totalPages);
     return (
         <div className={"PostPaging"}>
             <button
@@ -19,7 +17,7 @@ const PostPaging = ( {postPage, pageNumbers, handlePageChange}) => {
                     onClick={() => handlePageChange(pageNum)}
                     className={String(pageNum) === String(postPage.currentPage) ? 'active' : 'delete'}
                 >
-                    {pageNum + 1} {/* 페이지 UI 번호 */}
+                    {pageNum} {/* 페이지 UI 번호 */}
                 </button>
               ))
             }

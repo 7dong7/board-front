@@ -27,16 +27,16 @@ import { usePublicApi } from "../api/PublicApi.jsx";
 const Posts = () => {
     const publicApi = usePublicApi(); // api Context
     const [searchState, setSearchState] = useState({ // 검색 상태
-        page: "0",
-        searchType: "title",
-        searchWord: "",
-        size: "20", // 기본 크기 설정
+        page: '1',
+        searchType: 'title',
+        searchWord: '',
+        size: '20', // 기본 크기 설정
     });
     const [searchParams, setSearchParams] = useSearchParams();// url 파라미터 받기
     const [postPage, setPostPage] = useState({ // 서버에서 가져온 게시글 목록
         content: [],
         totalPage: 0,
-        currentPage: parseInt(searchParams.get('page') || '0', 10),
+        currentPage: parseInt(searchParams.get('page') || 1, 10),
     });
     const [loading, setLoading] = useState(false); // 로딩 중
 
@@ -59,7 +59,7 @@ const Posts = () => {
             setPostPage({
                 content: response.data.content,
                 totalPages: response.data.totalPages,
-                currentPage: searchParams.get("page"),
+                currentPage: searchParams.get("page") || 1,
             });
         } catch (error) {
             console.log("error: ", error);
@@ -87,11 +87,13 @@ const Posts = () => {
 // ======== 페이징 처리 ========
     const getPageNumbers = () => {
         const {currentPage, totalPages} = postPage;
-        const startPage = Math.max(0, currentPage - 3); // 현재 페이지 기준 좌우 2개
-        const endPage = Math.min(startPage + 6, totalPages); // 최대 5개
+        console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
+        const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
+        const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
         return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
     }
     const pageNumbers = getPageNumbers(); // 페이징 번호 반복수
+    console.log("pageNumbers:", pageNumbers);
 
 
 // ======== 이벤트 ========
