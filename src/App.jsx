@@ -4,8 +4,9 @@ import './App.css'
 import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 
 // 페이지
-import Posts from "./pages/Posts.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./pages/Login.jsx"; // 로그인 페이지
+import Posts from "./pages/Posts.jsx"; // 게시글 목록
+import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
 
 // 경로 설정
     // 조건부 로케이션
@@ -33,6 +34,7 @@ function App() {
                 <Routes>{/* 경로 설정 */}
                     <Route path={"/"} element={<Posts/>}/>
                     <Route path={"/posts"} element={<Posts/>}/>
+                    <Route path={"/posts/:id"} element={<PostDetail />} />
                     <Route path={"/login"} element={<Login/>}/>
                 </Routes>
             </PublicApiProvider>

@@ -87,13 +87,13 @@ const Posts = () => {
 // ======== 페이징 처리 ========
     const getPageNumbers = () => {
         const {currentPage, totalPages} = postPage;
-        console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
+        // console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
         const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
         const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
         return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
     }
     const pageNumbers = getPageNumbers(); // 페이징 번호 반복수
-    console.log("pageNumbers:", pageNumbers);
+    // console.log("pageNumbers:", pageNumbers);
 
 
 // ======== 이벤트 ========
@@ -142,6 +142,7 @@ const Posts = () => {
     if (loading) {
         return <div>로딩중...</div>
     }
+    console.log("postPage: ", postPage);
 
     return (
         <div className={"Posts"}>

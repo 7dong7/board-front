@@ -1,12 +1,14 @@
 // css
 import "./Header.css";
 
-const Header = ({title, loc}) => {
+const Header = ({size, title, loc, color}) => {
+    const sizes = ['h1', 'h2', 'h3'];
+    const TitleSize = sizes.includes(size) ? size : 'h1';
 
     return (
-      <div className={`Header Header-${loc}`}>
-          <h1>{title}</h1>
-      </div>
+        <div className={`Header Header-${loc} color-${color}`}>
+            <TitleSize>{title}</TitleSize>
+        </div>
     );
 }
 

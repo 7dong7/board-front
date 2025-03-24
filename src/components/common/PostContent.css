@@ -1,0 +1,40 @@
+.PostContent {
+    /*margin: 40px 0 80px 0;*/
+}
+
+/* 게시글 정보 */
+.postInfo {
+    margin:15px 0 0 0;
+}
+
+    /* 제목 */
+.postInfo-titleInfo {
+    padding: 8px 0;
+    font-weight: bold;
+    border-bottom: 2px solid #2c3e4f;
+}
+
+.postInfo-titleInfo-title { /* 카테고리 & 제목 */
+    font-size: 15pt;
+    color: #2c3e4f;
+}
+
+.postInfo-titleInfo-viewCount { /* 조회수 */
+    font-size: 10pt;
+    color: #3889fd;
+}
+    /* 작성자 */
+.postInfo-member {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom:1px solid #dbdbdb;
+    color: #757575;
+    padding: 8px 5px;
+    font-size:10pt
+}
+
+/* 게시글 내용 */
+.postContent {
+    margin: 80px 0 40px 0;
+}
