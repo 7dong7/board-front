@@ -4,7 +4,7 @@ import "./Posts.css";
 // 컴포넌트
 import SearchBar from "../components/common/SearchBar.jsx";
 import PostItem from "../components/common/PostItem.jsx";
-import PostPaging from "../components/common/PostPaging.jsx";
+import Paging from "../components/common/Paging.jsx";
 import NavButton from "../components/common/NavButton.jsx";
 
 // 훅
@@ -35,7 +35,7 @@ const Posts = () => {
     const [searchParams, setSearchParams] = useSearchParams();// url 파라미터 받기
     const [postPage, setPostPage] = useState({ // 서버에서 가져온 게시글 목록
         content: [],
-        totalPage: 0,
+        totalPages: 0,
         currentPage: parseInt(searchParams.get('page') || 1, 10),
     });
     const [loading, setLoading] = useState(false); // 로딩 중
@@ -87,7 +87,7 @@ const Posts = () => {
 // ======== 페이징 처리 ========
     const getPageNumbers = () => {
         const {currentPage, totalPages} = postPage;
-        // console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
+        console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
         const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
         const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
         return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
@@ -173,8 +173,8 @@ const Posts = () => {
             </section>
 
             <section className={"paging-nav"}>
-                <PostPaging
-                    postPage={postPage}
+                <Paging
+                    page={postPage}
                     pageNumbers={pageNumbers}
                     handlePageChange={handlePageChange}
                     />

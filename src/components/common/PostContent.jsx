@@ -2,7 +2,7 @@
 import "./PostContent.css";
 
 // format
-import {format, parseISO} from "date-fns";
+import {format} from "date-fns";
 
 
 const PostContent = ({postId, title, content, createdAt, viewCount, memberId, nickname}) => {

@@ -1,5 +1,5 @@
 /* 페이지 네이션 */
-.PostPaging {
+.Paging {
     display: flex;
     gap: 6px;
     margin-bottom: 30px;
@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-.PostPaging > button {
+.Paging > button {
     all: unset;
     background-color: white;
     border: 1px solid #c6c6c7;
@@ -18,12 +18,12 @@
     cursor: pointer;
 }
 
-.PostPaging > button:hover {
+.Paging > button:hover {
     background-color: rgba(217, 217, 217, 0.91);
     transition: 0.2s;
 }
 
-.PostPaging > button.active {
+.Paging > button.active {
     border: 1px solid #333333;
     background-color: #333333;
     font-weight: bold;

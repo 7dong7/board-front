@@ -5,20 +5,30 @@ import "./PostDetail.css";
 import Line from "../components/common/Line.jsx";
 import Header from "../components/common/Header.jsx";
 import PostContent from "../components/common/PostContent.jsx";
+import Comment from "../components/common/Comment.jsx";
+import Paging from "../components/common/Paging.jsx";
 
 // 훅
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {usePublicApi} from "../api/PublicApi.jsx";
 import {useEffect, useState} from "react";
 
 // 포맷 훅
 import { format } from "date-fns";
+import comment from "../components/common/Comment.jsx";
+
 
 const PostDetail = () => {
     const {id} = useParams(); // 동적 경로 매핑
     const publicApi = usePublicApi(); // api 요청
-    const [post, setPost] = useState();
-    const [loading, setLoading] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams() // url 검색어
+    const [post, setPost] = useState(); // 게시글 상태
+    const [commentPage, setCommentPage] = useState({ // 댓글 상태
+        content: [],
+        totalPages: 0,
+        currentPage: parseInt(searchParams.get('page') || 1, 10)
+    });
+    const [loading, setLoading] = useState(true); // 로딩 상태
 
     const postDetail = async () => {
         setLoading(true);
@@ -26,6 +36,9 @@ const PostDetail = () => {
             const response = await publicApi({
                 url: `/api/posts/${id}`,
                 method: "GET",
+                params: {
+                    page: searchParams.get("page")
+                }
             });
             /**
              *  1. 게시글에 대한 정보
@@ -33,7 +46,12 @@ const PostDetail = () => {
              *  3. 댓글에 대한 대댓글
              */
             console.log("postDetail response.data: ", response.data);
-            setPost(response.data);
+            setPost(response.data); // post 저장
+            setCommentPage({ // commentPage 저장
+                content: response.data.viewComment.content,
+                totalPages: response.data.viewComment.totalPages,
+                currentPage: searchParams.get("page") || 1,
+            });
         } catch (error) {
             console.log("error: ", error);
         } finally {
@@ -43,9 +61,28 @@ const PostDetail = () => {
 
     useEffect(() => {
         postDetail();
-    }, []);
+    }, [searchParams]);
 
-    if (loading) {
+    // ======== 페이징 처리 ========
+    const getPageNumbers = () => {
+        const {currentPage, totalPages} = commentPage;
+        // console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
+        const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
+        const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
+        return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
+    }
+    const pageNumbers = getPageNumbers(); // 페이징 번호 반복수
+
+    // 페이지 이동 ( 페이지 네비게이션을 사용하는 이동 )
+    const handlePageChange = (newPage) => {
+        if(newPage >= 1 && newPage < commentPage.totalPages + 1) { // page 범위 지정 (실제 사용하는 범위를 벗어나지 못함)
+            setSearchParams({
+                page: newPage,
+            });
+        }
+    };
+
+    if (loading) { // 렌더링 이후에
         return <div>로딩중...</div>
     }
 
@@ -59,9 +96,23 @@ const PostDetail = () => {
                 <PostContent {...post}/>
             </section>
 
-            <Line />
+            <Line/>
+            <Header size={"h2"} title={"댓글"} loc={"left"} color={"basic"}/>
+
             <section className={"comments-section"}>
-                <Header size={"h2"} title={"댓글"} loc={"left"} color={"basic"}/>
+                {
+                    commentPage.content.map((item) =>
+                        <Comment key={item.commentId} comment={item}/>
+                    )
+                }
+            </section>
+
+            <section className={"paging-nav"}>
+                <Paging
+                    page={commentPage}
+                    pageNumbers={pageNumbers}
+                    handlePageChange={handlePageChange}
+                />
             </section>
         </div>
     );
