@@ -38,3 +38,8 @@
 .postContent {
     margin: 80px 0 40px 0;
 }
+
+.postContent img {
+    max-width: 100%;
+    height: auto;
+}

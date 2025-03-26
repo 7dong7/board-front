@@ -8,4 +8,10 @@
     color:white;
     background-color: #333333;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.Nav-new-posts:hover {
+    background-color: #515151;
+    transition: 0.1s;
 }

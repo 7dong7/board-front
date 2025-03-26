@@ -7,6 +7,7 @@ import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 import Login from "./pages/Login.jsx"; // 로그인 페이지
 import Posts from "./pages/Posts.jsx"; // 게시글 목록
 import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
+import PostNew from "./pages/PostNew.jsx";
 
 // 경로 설정
     // 조건부 로케이션
@@ -35,6 +36,7 @@ function App() {
                     <Route path={"/"} element={<Posts/>}/>
                     <Route path={"/posts"} element={<Posts/>}/>
                     <Route path={"/posts/:id"} element={<PostDetail />} />
+                    <Route path={"/posts/new"} element={<PostNew />} />
                     <Route path={"/login"} element={<Login/>}/>
                 </Routes>
             </PublicApiProvider>

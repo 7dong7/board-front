@@ -30,8 +30,9 @@ const PostContent = ({postId, title, content, createdAt, viewCount, memberId, ni
                 </div>
             </div>
 
-            <div className={"postContent"}>
-                {content}
+            <div
+                className={"postContent"}
+                dangerouslySetInnerHTML={{__html:content}}>
             </div>
         </div>
     );

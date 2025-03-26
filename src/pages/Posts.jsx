@@ -142,7 +142,6 @@ const Posts = () => {
     if (loading) {
         return <div>로딩중...</div>
     }
-    console.log("postPage: ", postPage);
 
     return (
         <div className={"Posts"}>
@@ -169,7 +168,7 @@ const Posts = () => {
             </section>
 
             <section>
-                <NavButton text={"글 쓰기"} path={"/posts/new"} className={"Nav-new-posts"}/>
+                <NavButton text={"글 쓰기"} navPath={"/posts/new"} className={"Nav-new-posts"}/>
             </section>
 
             <section className={"paging-nav"}>

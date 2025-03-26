@@ -45,7 +45,7 @@ const PostDetail = () => {
              *  2. 게시글에 대한 댓글
              *  3. 댓글에 대한 대댓글
              */
-            console.log("postDetail response.data: ", response.data);
+            // console.log("postDetail response.data: ", response.data);
             setPost(response.data); // post 저장
             setCommentPage({ // commentPage 저장
                 content: response.data.viewComment.content,
@@ -108,11 +108,17 @@ const PostDetail = () => {
             </section>
 
             <section className={"paging-nav"}>
-                <Paging
-                    page={commentPage}
-                    pageNumbers={pageNumbers}
-                    handlePageChange={handlePageChange}
-                />
+                {commentPage.content.length === 0 ?
+                    <div className={"no-comment"}>
+                        작성된 댓글이 없습니다.
+                    </div>
+                    :
+                    <Paging
+                        page={commentPage}
+                        pageNumbers={pageNumbers}
+                        handlePageChange={handlePageChange}
+                    />
+                }
             </section>
         </div>
     );

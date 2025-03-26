@@ -12,3 +12,13 @@
     padding: 30px;
     width: 800px;
 }
+
+/* 댓글이 없는 경우의 css */
+.no-comment {
+    margin: 70px 0 90px 0;
+    font-size: 14pt;
+    font-style:italic;
+
+    color: #9a9a9a;
+    justify-self: center;
+}
