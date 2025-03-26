@@ -1,0 +1,26 @@
+.Replies {
+    margin: 16px 0 16px 50px;
+}
+
+/* 댓글 */
+.Replies-info,
+.Replies-content {
+    font-size:11pt;
+}
+
+.Replies-info {
+    padding: 4px 16px;
+    display: flex;
+    justify-content: space-between;
+
+    border-radius: 4px;
+    background-color: #e8e8e8;
+}
+.Replies-content {
+    padding: 8px 16px;
+}
+.Replies-createAt {
+    font-size:10pt;
+}
+
+/* 대댓글 */

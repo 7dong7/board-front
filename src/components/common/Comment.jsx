@@ -8,12 +8,6 @@ import Replies from "./Replies.jsx";
 import {format} from "date-fns";
 
 const Comment = ({comment}) => {
-    console.log("comment: ", comment);
-
-    console.log(comment.replies.length)
-    if (comment.replies.length === 0) {
-        console.log("리플 없음");
-    }
 
     return (
         <div className={"Comment"}>
@@ -30,7 +24,6 @@ const Comment = ({comment}) => {
                     <Replies reply={reply}/>
                 )
             }
-
         </div>
     );
 }
