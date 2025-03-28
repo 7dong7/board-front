@@ -13,13 +13,29 @@
     width: 800px;
 }
 
+/* 게시글 내용 부분 */
+.post-content-section {
+
+}
+
+/* 댓글 작성 부분 제목 */
+.postDetail-comment-header-section {
+    margin:30px 0 10px 0;
+
+}
+
+.paging-nav {
+    margin: 40px 0;
+}
+
 /* 댓글이 없는 경우의 css */
 .no-comment {
     margin: 70px 0 90px 0;
-    font-size: 14pt;
+    font-size: 13pt;
     font-style:italic;
 
     color: #9a9a9a;
     justify-self: center;
 }
+
 

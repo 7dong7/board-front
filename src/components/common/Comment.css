@@ -7,7 +7,7 @@
 .comment-content {
     font-size:11pt;
 }
-
+/* 댓글 정보 (이름, 날짜) */
 .comment-info {
     padding: 4px 16px;
     display: flex;
@@ -16,9 +16,13 @@
     border-radius: 4px;
     background-color: #e8e8e8;
 }
+/* 댓글 내용 스타일*/
 .comment-content {
     padding: 8px 16px;
+    min-height: 36px;
+    box-sizing: border-box;
 }
+/* 댓글 날짜 스타일*/
 .comment-createAt {
     font-size:10pt;
 }

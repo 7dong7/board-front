@@ -2,7 +2,6 @@
 .Paging {
     display: flex;
     gap: 6px;
-    margin-bottom: 30px;
 
     justify-content: center;
 }

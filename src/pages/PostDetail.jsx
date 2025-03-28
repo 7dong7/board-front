@@ -95,7 +95,8 @@ const PostDetail = () => {
             <section className={"header-section"}>
                 <Header size={"h1"} title={"게시글"} loc={"center"} color={"basic"}/>
             </section>
-
+            
+            {/* 댓글 내용 부분*/}
             <section className={"post-content-section"}>
                 <PostContent {...post}/>
                 {post.email === username && (
@@ -104,7 +105,9 @@ const PostDetail = () => {
             </section>
 
             <Line/>
-            <Header size={"h2"} title={"댓글"} loc={"left"} color={"basic"}/>
+            <section className={"postDetail-comment-header-section"}>
+                <Header size={"h2"} title={"댓글"} loc={"left"} color={"basic"}/>
+            </section>
 
             <section className={"comments-section"}>
                 {
