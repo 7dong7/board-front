@@ -19,7 +19,6 @@ import {ApiProvider} from "./api/ApiContext.jsx";
 
 // 테스트 컴포넌트
 import {PublicApiProvider} from "./api/PublicApi.jsx";
-import {RefreshProvider} from "./api/RefreshContext.jsx";
 
 
 
@@ -31,7 +30,6 @@ function App() {
     return (
         <>
             <ApiProvider> {/* 인증이 필요한 요청에 사용 */}
-            <RefreshProvider>{/* api 요청 이후 refresh 토큰을 사용해 다시 access 토큰을 요청하기 위해서 사용 */}
             <PublicApiProvider> {/* 인증이 필요하지 않은 요청에 사용 */}
                 {!hideHeader && <TopNavigationBar/>}
 
@@ -45,7 +43,6 @@ function App() {
                     <Route path={"/login"} element={<Login/>}/> {/* 로그인 페이지*/}
                 </Routes>
             </PublicApiProvider>
-            </RefreshProvider>
             </ApiProvider>
         </>
     );

@@ -57,7 +57,7 @@ const PostEdit = () => {
             console.log("수정 요청 결과", response);
             nav(`/posts/${postId}`);
         } catch (error) {
-            console.log("error:", error);
+            console.error("error:", error);
         }
     }
 
