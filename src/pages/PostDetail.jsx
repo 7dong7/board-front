@@ -16,6 +16,7 @@ import {useEffect, useState} from "react";
 // 포맷 훅
 import { format } from "date-fns";
 import comment from "../components/common/Comment.jsx";
+import NavButton from "../components/common/NavButton.jsx";
 
 
 const PostDetail = () => {
@@ -86,6 +87,8 @@ const PostDetail = () => {
         return <div>로딩중...</div>
     }
 
+    const username = localStorage.getItem("username");
+
     return (
         <div className={"PostDetail"}>
             <section className={"header-section"}>
@@ -94,6 +97,9 @@ const PostDetail = () => {
 
             <section className={"post-content-section"}>
                 <PostContent {...post}/>
+                {post.email === username && (
+                    <NavButton text={"수정하기"} navPath={`/posts/${id}/edit`} className={"post-edit-btn"}/>
+                )}
             </section>
 
             <Line/>

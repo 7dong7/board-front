@@ -13,7 +13,7 @@ const NavButton = ({className, text, navPath}) => {
     return (
         <button
             onClick={navEvent}
-            className={`${className}`}>
+            className={`NavButton ${className}`}>
             {text}
         </button>
     )

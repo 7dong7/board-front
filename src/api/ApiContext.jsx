@@ -1,4 +1,12 @@
-// === jwt 가 필요한 요청에 대해서 === //
+/**
+ *  api 요청
+ *      권한이 필요한 요청의 경우 JWT 의 유효성을 검사
+ *      interceptor.request 를 통해서 요청헤더에 access 토큰 담아서 전달
+ *
+ *
+ *
+ *
+ */
 import axios from "axios";
 
 import { createContext, useContext } from "react";
@@ -13,8 +21,9 @@ const api = axios.create({
     withCredentials: true, // 쿠키, 인증정보 포함 요청
 });
 
-// 인터셉터
-    // 모든 요청에 대해서 localStorage 에 값을 가져와서 요청 header 에 담아서 보낸다
+// === 인터셉터 ===
+
+// 모든 요청에 대해서 localStorage 에 값을 가져와서 요청 header 에 담아서 보낸다
 api.interceptors.request.use(
     (config) => { // config 는 요청 객체
         const access = localStorage.getItem("access");
@@ -25,6 +34,16 @@ api.interceptors.request.use(
     },
     (error) => { // 요청 실패시
         return Promise.reject(error);
+    }
+)
+
+// 응답 인터셉터 -> 정상인 경우는 그냥 반환, access 토큰의 검증 에러 발생시 처리 로직 구현
+api.interceptors.response.use(
+    (response) => {
+        console.log(response);
+    },
+    async (error) => {
+        console.log(error);
     }
 )
 

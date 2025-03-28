@@ -1,17 +1,41 @@
+/* 버튼 기본 스타일 */
+.NavButton {
+    all:unset;
+}
+
+.NavButton:hover {
+    cursor: pointer;
+    transition: 0.1s;
+}
+
 /* posts 글쓰기 버튼 */
 .Nav-new-posts {
-    all:unset;
-
     margin:30px 0;
     padding: 8px 50px;
 
     color:white;
     background-color: #333333;
     border-radius: 5px;
-    cursor: pointer;
 }
 
 .Nav-new-posts:hover {
     background-color: #515151;
-    transition: 0.1s;
+}
+
+/* 게시글 수정하기 버튼*/
+.post-edit-btn {
+    margin:120px 0 0 0;
+    padding: 8px 30px;
+
+    display: flex;
+    justify-self: right;
+
+    background-color: #fa5b5b;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+
+}
+.post-edit-btn:hover {
+    background-color: #ff8585;
 }
