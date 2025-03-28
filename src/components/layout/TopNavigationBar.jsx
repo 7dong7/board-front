@@ -5,12 +5,14 @@ import "./TopNavigationBar.css";
 import NavButton from "../common/NavButton.jsx";
 import NavReloadButton from "../common/NavReloadButton.jsx";
 import {useEffect, useState} from "react";
+import {usePublicApi} from "../../api/PublicApi.jsx";
 
 // 훅
 
 const TopNavigationBar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태
     const [username, setUsername] = useState(""); // 로그인 사용자 username
+    const publicApi = usePublicApi();
 
     useEffect(() => { // Header 에 로그인 사용자 표시
         const access = localStorage.getItem("access");
@@ -19,6 +21,25 @@ const TopNavigationBar = () => {
             setUsername(localStorage.getItem("username"));
         }
     }, []);
+
+    // 로그아웃 이벤트
+    const logoutHandler = async () => {
+        console.log("로그아웃 실행");
+        try {
+            const response = await publicApi({
+                url: "/logout",
+                method: "GET",
+                withCredentials: true,
+            });
+            localStorage.removeItem("access");
+            localStorage.removeItem("username");
+            setIsLoggedIn(false);
+            setUsername("");
+            window.location.href = '/login';
+        } catch (error) {
+            console.log("error: ", error);
+        }
+    }
 
     return (
         <div className={"TopNavigationBar"}>
@@ -32,7 +53,7 @@ const TopNavigationBar = () => {
                         ?
                         <div>
                             <button>{username}</button>
-                            <button>로그아웃</button>
+                            <button onClick={logoutHandler}>로그아웃</button>
                         </div>
                         :
                         <NavButton text={"로그인"} navPath={"/login"}/>

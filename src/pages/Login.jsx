@@ -45,9 +45,6 @@ const Login = () => {
             });
             const access = response.headers['access'];
             const username = response.headers['username'];
-            console.log(response.headers);
-            const refresh = response.headers['set-cookie'];
-            console.log("refresh: ", refresh);
             if (access) { // 정상적으로 access 토큰 값을 받아온 경우 로컬 스토리지에 저장한다
                 localStorage.setItem("access", access);
                 localStorage.setItem("username", username);
@@ -57,7 +54,6 @@ const Login = () => {
             console.log("error: ", error);
         }
     };
-    
 
     return (
         <div className={"Login"}>
