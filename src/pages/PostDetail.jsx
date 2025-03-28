@@ -1,12 +1,13 @@
 // css
 import "./PostDetail.css";
 
-// 게시글 내용
+// 컴포넌트
 import Line from "../components/common/Line.jsx";
 import Header from "../components/common/Header.jsx";
 import PostContent from "../components/common/PostContent.jsx";
 import Comment from "../components/common/Comment.jsx";
 import Paging from "../components/common/Paging.jsx";
+import CreateComment from "../components/common/CreateComment.jsx";
 
 // 훅
 import {useParams, useSearchParams} from "react-router-dom";
@@ -14,12 +15,12 @@ import {usePublicApi} from "../api/PublicApi.jsx";
 import {useEffect, useState} from "react";
 
 // 포맷 훅
-import { format } from "date-fns";
 import comment from "../components/common/Comment.jsx";
 import NavButton from "../components/common/NavButton.jsx";
-
+import {useAuth} from "../contexts/AuthContext.jsx";
 
 const PostDetail = () => {
+    const auth = useAuth(); // 로그인 상태
     const {id} = useParams(); // 동적 경로 매핑
     const publicApi = usePublicApi(); // api 요청
     const [searchParams, setSearchParams] = useSearchParams() // url 검색어
@@ -117,6 +118,8 @@ const PostDetail = () => {
                 {commentPage.content.length === 0 ?
                     <div className={"no-comment"}>
                         작성된 댓글이 없습니다.
+                        <br />
+                        댓글은 로그인 후 작성할 수 있습니다.
                     </div>
                     :
                     <Paging
@@ -125,6 +128,11 @@ const PostDetail = () => {
                         handlePageChange={handlePageChange}
                     />
                 }
+            </section>
+
+            <section className={"comment-write-section"}>
+                {/* 로그인을 해야 댓글표시*/}
+                {auth.isLogged && <CreateComment />}
             </section>
         </div>
     );

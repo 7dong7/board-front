@@ -21,7 +21,7 @@ const Comment = ({comment}) => {
             {comment.replies.length === 0
                 ? null
                 : comment.replies.map((reply) =>
-                    <Replies reply={reply}/>
+                    <Replies key={reply.commentId} reply={reply}/>
                 )
             }
         </div>

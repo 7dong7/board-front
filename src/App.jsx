@@ -16,11 +16,15 @@ import {Routes, Route, useLocation} from "react-router-dom";
 
 // api 제공
 import {ApiProvider} from "./api/ApiContext.jsx";
-
-// 테스트 컴포넌트
 import {PublicApiProvider} from "./api/PublicApi.jsx";
+import {AuthProvider} from "./contexts/AuthContext.jsx";
+
+// 로그인 전역 관리 context
+
 
 function App() {
+
+
     // Header 조건부 렌더링
     const location = useLocation();
     const hideHeader = location.pathname === "/login";
@@ -29,6 +33,7 @@ function App() {
         <>
             <ApiProvider> {/* 인증이 필요한 요청에 사용 */}
             <PublicApiProvider> {/* 인증이 필요하지 않은 요청에 사용 */}
+            <AuthProvider> {/* 로그인 상태 관리 */}
                 {!hideHeader && <TopNavigationBar />}
 
                 <Routes>{/* 경로 설정 */}
@@ -40,6 +45,7 @@ function App() {
 
                     <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
                 </Routes>
+            </AuthProvider>
             </PublicApiProvider>
             </ApiProvider>
         </>

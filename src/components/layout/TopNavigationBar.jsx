@@ -6,18 +6,19 @@ import NavButton from "../common/NavButton.jsx";
 import NavReloadButton from "../common/NavReloadButton.jsx";
 import {useEffect, useState} from "react";
 import {usePublicApi} from "../../api/PublicApi.jsx";
+import {useAuth} from "../../contexts/AuthContext.jsx";
 
 // 훅
 
 const TopNavigationBar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태
+    const auth = useAuth(); // 로그인 상태 Context
     const [username, setUsername] = useState(""); // 로그인 사용자 username
     const publicApi = usePublicApi();
 
     useEffect(() => { // Header 에 로그인 사용자 표시
         const access = localStorage.getItem("access");
         if (access) {
-            setIsLoggedIn(true);
+            auth.setIsLogged(true);
             setUsername(localStorage.getItem("username"));
         }
     }, []);
@@ -33,7 +34,7 @@ const TopNavigationBar = () => {
             });
             localStorage.removeItem("access");
             localStorage.removeItem("username");
-            setIsLoggedIn(false);
+            auth.setIsLogged(false);
             setUsername("");
             window.location.href = '/login';
         } catch (error) {
@@ -49,7 +50,7 @@ const TopNavigationBar = () => {
 
             <div className={"nav-bar-right"}>
                 {
-                    isLoggedIn
+                    auth.isLogged
                         ?
                         <div>
                             <button>{username}</button>

@@ -13,8 +13,10 @@ import { useApi } from "../api/ApiContext.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {usePublicApi} from "../api/PublicApi.jsx";
+import {useAuth} from "../contexts/AuthContext.jsx";
 
 const Login = () => {
+    const auth = useAuth();
     const nav = useNavigate(); // 네비게이션
     const publicApi = usePublicApi(); // api 요청
     // 로그인의 경우 state vs ref 에 대해서 state 가 상태를 실시간으로 보고 수정 가능함 (입력 상태 감지)
@@ -48,6 +50,7 @@ const Login = () => {
             if (access) { // 정상적으로 access 토큰 값을 받아온 경우 로컬 스토리지에 저장한다
                 localStorage.setItem("access", access);
                 localStorage.setItem("username", username);
+                auth.setIsLogged(true);
             }
             nav("/"); // 로그인 성공후 페이지 메인 페이지로 이동
         } catch (error) {
