@@ -12,12 +12,14 @@ import {useApi} from "../api/ApiContext.jsx";
 // ckEditor
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {useNavigate} from "react-router-dom";
 
 
 const PostNew = () => {
     const [content, setContent] = useState(""); // 내용
     const [title, setTitle] = useState(""); // 제목
     const api = useApi(); // api 요청
+    const nav = useNavigate();
 
     const requestCreatePost = async () => { // 요청
         try {
@@ -33,6 +35,7 @@ const PostNew = () => {
             console.log("response.status: ", response.status);
         } catch (error) {
             console.error("에러 발생: ", error);
+            nav("/login");
         }
     }
 

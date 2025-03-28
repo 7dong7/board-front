@@ -20,8 +20,6 @@ import {ApiProvider} from "./api/ApiContext.jsx";
 // 테스트 컴포넌트
 import {PublicApiProvider} from "./api/PublicApi.jsx";
 
-
-
 function App() {
     // Header 조건부 렌더링
     const location = useLocation();
@@ -31,16 +29,16 @@ function App() {
         <>
             <ApiProvider> {/* 인증이 필요한 요청에 사용 */}
             <PublicApiProvider> {/* 인증이 필요하지 않은 요청에 사용 */}
-                {!hideHeader && <TopNavigationBar/>}
+                {!hideHeader && <TopNavigationBar />}
 
                 <Routes>{/* 경로 설정 */}
                     <Route path={"/"} element={<Posts/>}/>
                     <Route path={"/posts"} element={<Posts/>}/> {/* 게시글 목록*/}
                     <Route path={"/posts/:id"} element={<PostDetail />} />  {/* 게시글 내용 */}
                     <Route path={"/posts/new"} element={<PostNew />} /> {/* 게시글 작성 */}
-
                     <Route path={"/posts/:postId/edit"} element={<PostEdit />}/> {/* 게시글 수정*/}
-                    <Route path={"/login"} element={<Login/>}/> {/* 로그인 페이지*/}
+
+                    <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
                 </Routes>
             </PublicApiProvider>
             </ApiProvider>

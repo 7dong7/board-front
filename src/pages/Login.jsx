@@ -12,10 +12,11 @@ import { useApi } from "../api/ApiContext.jsx";
 // 경로
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {usePublicApi} from "../api/PublicApi.jsx";
 
 const Login = () => {
     const nav = useNavigate(); // 네비게이션
-    const api = useApi(); // api 불러오기
+    const publicApi = usePublicApi(); // api 요청
     // 로그인의 경우 state vs ref 에 대해서 state 가 상태를 실시간으로 보고 수정 가능함 (입력 상태 감지)
     const [form, setForm] = useState({
         username: "",
@@ -33,19 +34,20 @@ const Login = () => {
     // 로그인 핸들러 api 요청
     const loginEvent = async () => {
         try {
-            const response = await api({
+            const response = await publicApi({
                 method: "POST",
                 url: "/login",
                 data: {
                     username:String(form.username),
                     password:String(form.password)
-                }
+                },
+                withCredentials: true,
             });
-            console.log(response.headers);
             const access = response.headers['access'];
             const username = response.headers['username'];
-            console.log("access: ", access);
-            console.log("username: ", username);
+            console.log(response.headers);
+            const refresh = response.headers['set-cookie'];
+            console.log("refresh: ", refresh);
             if (access) { // 정상적으로 access 토큰 값을 받아온 경우 로컬 스토리지에 저장한다
                 localStorage.setItem("access", access);
                 localStorage.setItem("username", username);
@@ -89,7 +91,6 @@ const Login = () => {
             </button>
 
             <Line/>
-
 
             <div className={"OAuth2-login"}>
                 외부 로그인

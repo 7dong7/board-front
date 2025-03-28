@@ -54,7 +54,6 @@ const PostEdit = () => {
                     content: post.content,
                 }
             })
-            console.log("수정 요청 결과", response);
             nav(`/posts/${postId}`);
         } catch (error) {
             console.error("error:", error);
@@ -75,7 +74,6 @@ const PostEdit = () => {
 
     const patchHandler = () => {
         patchApi();
-        console.log("패치 수정 요청");
     }
 
     if (loading) {
