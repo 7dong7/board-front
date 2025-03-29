@@ -15,9 +15,9 @@ import {usePublicApi} from "../api/PublicApi.jsx";
 import {useAuth} from "../contexts/AuthContext.jsx";
 
 // Auth
-import GoogleAuth from "../components/auth/GoogleAuth.jsx";
-import NaverAuth from "../components/auth/NaverAuth.jsx";
-import KakaoAuth from "../components/auth/KakaoAuth.jsx";
+import GoogleAuth from "../components/oauth/GoogleAuth.jsx";
+import NaverAuth from "../components/oauth/NaverAuth.jsx";
+import KakaoAuth from "../components/oauth/KakaoAuth.jsx";
 
 const Login = () => {
     const auth = useAuth();
