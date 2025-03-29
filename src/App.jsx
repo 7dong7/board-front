@@ -10,6 +10,9 @@ import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
 import PostNew from "./pages/PostNew.jsx";
 import PostEdit from "./pages/PostEdit.jsx";
 
+// OAuth2 정리
+import OAuth2Handler from "./pages/OAuth2Handler.jsx";
+
 // 경로 설정
     // 조건부 로케이션
 import {Routes, Route, useLocation} from "react-router-dom";
@@ -44,6 +47,8 @@ function App() {
                     <Route path={"/posts/:postId/edit"} element={<PostEdit />}/> {/* 게시글 수정*/}
 
                     <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
+                    <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} />
+
                 </Routes>
             </AuthProvider>
             </PublicApiProvider>
