@@ -7,11 +7,12 @@ import { GetLoginImage } from "../../util/get-login-image.js";
 const NaverAuth = () => {
 
     const naverLoginHandler = () => {
-        console.log("naverLoginHandler 발생");
+        window.location.href = "http://localhost:8080/oauth2/authorization/naver";
     }
 
     return (
-        <button onClick={naverLoginHandler}
+        <button
+            onClick={naverLoginHandler}
             className={"NaverAuth"}>
             <div className={"naver-image"}>
                 <img

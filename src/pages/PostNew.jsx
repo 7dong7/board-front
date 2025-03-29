@@ -47,6 +47,7 @@ const PostNew = () => {
 
     const createPostHandler = () => { // 게시글 작성하기 요청
         requestCreatePost();
+        nav("/");
     }
 
     return (

@@ -62,6 +62,12 @@ const Login = () => {
         }
     };
 
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            loginEvent();
+        }
+    }
+
     return (
         <div className={"Login"}>
             <Header title={"로그인"} loc={"center"}/>
@@ -83,7 +89,8 @@ const Login = () => {
                        className={"password"}
                        placeholder={"비밀번호를 입력하세요"}
                        value={form.password}
-                       onChange={onChangeLoginForm} />
+                       onChange={onChangeLoginForm}
+                       onKeyDown={onKeyDown}/>
             </div>
 
             {/*<Link />*/}

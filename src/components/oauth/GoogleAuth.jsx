@@ -3,11 +3,8 @@ import './GoogleAuth.css'
 
 // 이미지
 import { GetLoginImage } from "../../util/get-login-image.js";
-import {usePublicApi} from "../../api/PublicApi.jsx";
 
 const GoogleAuth = () => {
-    const publicApi = usePublicApi(); // api 요청
-
     // OAuth2 사용 google 요청
     const googleLoginHandler = () => {
         /**
