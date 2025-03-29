@@ -3,6 +3,7 @@ import "./PostDetail.css";
 
 // 컴포넌트
 import Line from "../components/common/Line.jsx";
+import NavButton from "../components/common/NavButton.jsx";
 import Header from "../components/common/Header.jsx";
 import PostContent from "../components/common/PostContent.jsx";
 import Comment from "../components/common/Comment.jsx";
@@ -12,12 +13,11 @@ import CreateComment from "../components/common/CreateComment.jsx";
 // 훅
 import {useParams, useSearchParams} from "react-router-dom";
 import {usePublicApi} from "../api/PublicApi.jsx";
+import {useAuth} from "../contexts/AuthContext.jsx";
 import {useEffect, useState} from "react";
 
 // 포맷 훅
 import comment from "../components/common/Comment.jsx";
-import NavButton from "../components/common/NavButton.jsx";
-import {useAuth} from "../contexts/AuthContext.jsx";
 
 const PostDetail = () => {
     const auth = useAuth(); // 로그인 상태
@@ -25,6 +25,7 @@ const PostDetail = () => {
     const publicApi = usePublicApi(); // api 요청
     const [searchParams, setSearchParams] = useSearchParams() // url 검색어
     const [post, setPost] = useState(); // 게시글 상태
+    const [replyTo, setReplyTo] = useState(); // 대댓글의 부모 댓글 번호
     const [commentPage, setCommentPage] = useState({ // 댓글 상태
         content: [],
         totalPages: 0,
@@ -112,7 +113,7 @@ const PostDetail = () => {
             <section className={"comments-section"}>
                 {
                     commentPage.content.map((item) =>
-                        <Comment key={item.commentId} comment={item}/>
+                        <Comment key={item.commentId} comment={item} replyTo={replyTo} setReplyTo={setReplyTo}/>
                     )
                 }
             </section>

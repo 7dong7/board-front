@@ -36,7 +36,7 @@ const TopNavigationBar = () => {
             localStorage.removeItem("username");
             auth.setIsLogged(false);
             setUsername("");
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             console.log("error: ", error);
         }

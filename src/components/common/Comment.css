@@ -24,7 +24,26 @@
 }
 /* 댓글 날짜 스타일*/
 .comment-createAt {
+    display: flex;
+    gap: 10px;
     font-size:10pt;
 }
 
-/* 대댓글 */
+/* ===== 대댓글 ===== */
+.comment-view-btn {
+    all:unset;
+    box-sizing: border-box;
+
+    padding: 1px 10px;
+    font-size: 8pt;
+    border-radius: 3px;
+
+    background-color: #f37f7f;
+    color: white;
+
+    align-items: center;
+}
+.comment-view-btn:hover {
+    cursor: pointer;
+    background-color: #f44c4c;
+}

@@ -1,11 +1,11 @@
-
 .Header {
     display: flex;
 }
 
 .Header > h1,
 .Header > h2,
-.Header > h3{
+.Header > h3,
+.Header > h4{
     margin:0;
 }
 
@@ -17,6 +17,9 @@
 }
 .Header > h3 {
     font-size: 15pt;
+}
+.Header > h4 {
+    font-size: 13pt;
 }
 
 /* 타이틀 위치 */
