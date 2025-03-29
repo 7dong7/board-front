@@ -8,12 +8,16 @@ import Line from "../components/common/Line.jsx";
 // api context
 import { useApi } from "../api/ApiContext.jsx";
 
-
 // 경로
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {usePublicApi} from "../api/PublicApi.jsx";
 import {useAuth} from "../contexts/AuthContext.jsx";
+
+// Auth
+import GoogleAuth from "../components/auth/GoogleAuth.jsx";
+import NaverAuth from "../components/auth/NaverAuth.jsx";
+import KakaoAuth from "../components/auth/KakaoAuth.jsx";
 
 const Login = () => {
     const auth = useAuth();
@@ -92,7 +96,9 @@ const Login = () => {
             <Line/>
 
             <div className={"OAuth2-login"}>
-                외부 로그인
+                <GoogleAuth />
+                <NaverAuth />
+                <KakaoAuth />
             </div>
         </div>
     );

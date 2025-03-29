@@ -1,0 +1,32 @@
+.NaverAuth {
+    all:unset;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    border-radius: 5px;
+    background-color:#03c559;
+
+}
+
+.naver-image {
+    height: 45px;
+    width: 183px;
+    background-color: #03c559;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+}
+
+.naver-image-img {
+    margin: 0 4px;
+    height: 40px;
+}
+
+.naver-image-name {
+    margin: 0 0 0 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}

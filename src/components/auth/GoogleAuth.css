@@ -1,0 +1,33 @@
+.GoogleAuth {
+    all:unset;
+    display: flex;
+    justify-content: center;
+
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.google-image{
+    height: 45px;
+    width: 183px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: 0.2s;
+
+    display: flex;
+    align-items: center;
+}
+
+.google-image-img {
+    margin: 0 4px;
+    height: 40px;
+}
+
+.google-image-name {
+    margin: 0 0 0 10px;
+    font-weight: bold;
+    font-size: 14px;
+}

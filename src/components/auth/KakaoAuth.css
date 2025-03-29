@@ -1,0 +1,14 @@
+.KakaoAuth {
+    all:unset;
+    cursor: pointer;
+
+    border-radius: 5px;
+    background-color: #FEE500;
+}
+
+.kakao-image {
+    display: flex;
+    justify-self: center;
+
+}
+
