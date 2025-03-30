@@ -4,22 +4,22 @@ import "./TopNavigationBar.css";
 // 네비게이션 버튼
 import NavButton from "../common/NavButton.jsx";
 import NavReloadButton from "../common/NavReloadButton.jsx";
+
+// 훅
 import {useEffect, useState} from "react";
 import {usePublicApi} from "../../api/PublicApi.jsx";
 import {useAuth} from "../../contexts/AuthContext.jsx";
+import {jwtDecode} from "jwt-decode";
 
-// 훅
 
 const TopNavigationBar = () => {
     const auth = useAuth(); // 로그인 상태 Context
-    const [username, setUsername] = useState(""); // 로그인 사용자 username
     const publicApi = usePublicApi();
 
     useEffect(() => { // Header 에 로그인 사용자 표시
         const access = localStorage.getItem("access");
         if (access) {
             auth.setIsLogged(true);
-            setUsername(localStorage.getItem("username"));
         }
     }, []);
 
@@ -33,9 +33,7 @@ const TopNavigationBar = () => {
                 withCredentials: true,
             });
             localStorage.removeItem("access");
-            localStorage.removeItem("username");
             auth.setIsLogged(false);
-            setUsername("");
             window.location.href = '/';
         } catch (error) {
             console.log("error: ", error);
@@ -53,7 +51,7 @@ const TopNavigationBar = () => {
                     auth.isLogged
                         ?
                         <div>
-                            <button>{username}</button>
+                            <NavButton text={jwtDecode(localStorage.getItem("access")).nickname} navPath={`/members/${jwtDecode(localStorage.getItem("access")).id}`}></NavButton>
                             <button onClick={logoutHandler}>로그아웃</button>
                         </div>
                         :

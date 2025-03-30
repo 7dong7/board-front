@@ -7,11 +7,12 @@ import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 import Login from "./pages/Login.jsx"; // 로그인 페이지
 import Posts from "./pages/Posts.jsx"; // 게시글 목록
 import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
-import PostNew from "./pages/PostNew.jsx";
-import PostEdit from "./pages/PostEdit.jsx";
+import PostNew from "./pages/PostNew.jsx"; // 게시글 작성
+import PostEdit from "./pages/PostEdit.jsx"; // 게시글 수정
+import MemberDetail from "./pages/MemberDetail.jsx"; // 사용자 정보
 
 // OAuth2 정리
-import OAuth2Handler from "./pages/OAuth2Handler.jsx";
+import OAuth2Handler from "./components/oauth/OAuth2Handler.jsx";
 
 // 경로 설정
     // 조건부 로케이션
@@ -26,8 +27,6 @@ import {AuthProvider} from "./contexts/AuthContext.jsx";
 
 
 function App() {
-
-
     // Header 조건부 렌더링
     const location = useLocation();
     const hideHeader = location.pathname === "/login";
@@ -47,8 +46,9 @@ function App() {
                     <Route path={"/posts/:postId/edit"} element={<PostEdit />}/> {/* 게시글 수정*/}
 
                     <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
-                    <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} />
+                    <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
 
+                    <Route path={"/members/:id"} element={<MemberDetail />}/>
                 </Routes>
             </AuthProvider>
             </PublicApiProvider>

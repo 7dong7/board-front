@@ -50,10 +50,8 @@ const Login = () => {
                 withCredentials: true,
             });
             const access = response.headers['access'];
-            const username = response.headers['username'];
             if (access) { // 정상적으로 access 토큰 값을 받아온 경우 로컬 스토리지에 저장한다
                 localStorage.setItem("access", access);
-                localStorage.setItem("username", username);
                 auth.setIsLogged(true);
             }
             nav("/"); // 로그인 성공후 페이지 메인 페이지로 이동

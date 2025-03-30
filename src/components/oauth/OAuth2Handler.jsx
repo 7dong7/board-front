@@ -1,4 +1,4 @@
-import {usePublicApi} from "../api/PublicApi.jsx";
+import {usePublicApi} from "../../api/PublicApi.jsx";
 import {useEffect} from "react";
 
 const OAuth2Handler = () => {
@@ -16,12 +16,7 @@ const OAuth2Handler = () => {
                     withCredentials: true,
                 });
                 const access = response.headers['access'];
-                const username = response.headers['username'];
-                console.log("access:", access);
-                console.log("username:", username);
-
                 localStorage.setItem("access", access);
-                localStorage.setItem("username", username);
             } catch (error) {
                 console.log("error:", error);
             }
