@@ -1,3 +1,4 @@
+/* 전체 div 스타일 */
 .MemberDetail {
     display: flex;
     flex-direction: column;
@@ -11,4 +12,25 @@
 
     padding: 30px;
     width: 800px;
+}
+
+/* 사용자 헤더 */
+.MemberDetail-header-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.MemberDetail-header-section button {
+    align-self: center;
+}
+
+
+/* 사용자 정보 */
+.MemberDetail-member-section {
+}
+
+/* 사용자 작성 정보 */
+.MemberDetail-posts-section {
+    border:1px solid black;
+    height: 10rem;
 }
