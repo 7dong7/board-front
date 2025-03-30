@@ -161,6 +161,7 @@ const Posts = () => {
                 <div>작성자</div>
                 <div>작성일</div>
             </section>
+
             <section className={"posts-body-content-section"}>
                 {postPage.content.map(
                         (item) => <PostItem key={item.postId} {...item} />

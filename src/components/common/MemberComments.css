@@ -1,0 +1,32 @@
+.MemberComments {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 10px 0 0 0;
+}
+
+/* 컬럼명 */
+.MemberComments-column-name {
+    padding: 6px 0;
+    font-size: 13pt;
+
+    display: flex;
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.MemberComments-column-name > div {
+    text-align: center;
+}
+
+.MemberComments-column-name > div:nth-child(1) {
+    width: 130px;
+}
+.MemberComments-column-name > div:nth-child(2) {
+    flex: 1;
+}
+.MemberComments-column-name > div:nth-child(3) {
+    width: 180px;
+}
+.MemberComments-column-name > div:nth-child(4) {
+    width: 150px;
+}

@@ -1,0 +1,24 @@
+.CommentItem {
+    display: flex;
+}
+
+.CommentItem > div {
+    border-bottom: 1px solid #dbdbdb;
+    text-align: center;
+    font-size:11pt;
+    padding: 7px 0;
+}
+
+.CommentItem > div:nth-child(1) {
+    width: 130px;
+}
+.CommentItem > div:nth-child(2) {
+    text-align: left;
+    flex: 1;
+}
+.CommentItem > div:nth-child(3) {
+    width: 180px;
+}
+.CommentItem > div:nth-child(4) {
+    width: 150px;
+}

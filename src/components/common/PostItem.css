@@ -10,7 +10,7 @@
 
 /* 게시글 정보 공통 */
 .PostItem > div {
-    padding:9px 0;
+    padding: 9px 0;
     border-bottom: 1px solid #dbdbdb;
 }
 
@@ -42,4 +42,10 @@
     width: 200px;
     text-align: center;
 
+}
+
+/* 사용자의 게시글 스타일 */
+.PostItem-members > div {
+    font-size:11pt;
+    padding: 7px;
 }

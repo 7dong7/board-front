@@ -31,6 +31,9 @@
 
 /* 사용자 작성 정보 */
 .MemberDetail-posts-section {
-    border:1px solid black;
-    height: 10rem;
+    margin: 60px 0 0 0;
+}
+
+.MemberDetail-comments-section {
+    margin: 120px 0 0 0;
 }

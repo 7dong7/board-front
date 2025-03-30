@@ -1,0 +1,37 @@
+.MemberPosts {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 10px 0 0 0;
+}
+
+
+/* 작성글 타이틀 */
+.MemberPosts-column-name {
+    padding: 6px 0;
+    font-size: 13pt;
+
+    display: flex;
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.MemberPosts-column-name > div {
+    text-align: center;
+}
+
+/* 게시글 정보 각각 */
+.MemberPosts-column-name > div:nth-child(1) { /* postId: 글 번호*/
+    width: 124px;
+}
+.MemberPosts-column-name > div:nth-child(2) { /* title: 글 제목 */
+    flex: 1;
+}
+.MemberPosts-column-name > div:nth-child(3) { /* viewCount: 조회수 */
+    width: 104px;
+}
+.MemberPosts-column-name > div:nth-child(4) { /* nickname: 작성자 닉네임 */
+    width: 144px;
+}
+.MemberPosts-column-name > div:nth-child(5) { /* createdAt: 작성일 */
+    width: 214px;
+}
