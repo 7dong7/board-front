@@ -14,8 +14,11 @@ import MemberPosts from "../components/common/MemberPosts.jsx";
 import MemberComments from "../components/common/MemberComments.jsx";
 import Paging from "../components/common/Paging.jsx";
 import NavButton from "../components/common/NavButton.jsx";
+import {useAuth} from "../contexts/AuthContext.jsx";
+import {jwtDecode} from "jwt-decode";
 
 const MemberDetail = () => {
+    const auth = useAuth();
     const {id} = useParams(); // 사용자 번호
     const publicApi = usePublicApi(); // api 요청 (공용)
     const [member, setMember] = useState(); // 정보
@@ -100,16 +103,22 @@ const MemberDetail = () => {
         getMemberDetail();
     }, [searchParams]);
 
-
 // 로딩중
     if (isLoading) {
         return (
             <div>로딩중...</div>
         );
     }
-
+    // 게시글 페이징
     const postNumbers = renderPageNumbers(member.pagePost); // 페이지를 넣어주면 된다
+    // 댓글 페이징
     const commentNumbers = renderPageNumbers(member.pageComment); // 페이지를 넣어주면 된다
+
+    // "정보수정" 버튼 렌더링 조건
+    const editCondition =
+        auth.isLogged && // 로그인 여부 true => 로그인
+        localStorage.getItem("access") && // 로그인 되어있고 jwt 값이 있음
+        String(id) === String(jwtDecode(localStorage.getItem("access")).id);
 
     return (
         <div className={"MemberDetail"}>
@@ -118,9 +127,13 @@ const MemberDetail = () => {
                     title={"사용자 정보"}
                     size={"h2"}
                     color={"basic"}/>
-                <NavButton className={"MemberDetail-edit"}
-                    navPath={`/members/${id}/verify-password`}
-                    text={"정보 수정"} />
+                {
+                    editCondition &&
+                    <NavButton className={"MemberDetail-edit"}
+                               navPath={`/members/${id}/verify-password`}
+                               text={"정보 수정"} />
+                }
+
             </section>
             <Line/>
 

@@ -65,6 +65,7 @@ const PostDetail = () => {
     // 페이징바 설정 // 페이지 객체를 설정으로 넣어주면 된다
     const renderPageNumbers = (page) => { // 페이징 렌더링을 기준점이 필요함
         if (page) {
+            console.log("page:", page);
             const renderNumbers = 7; // 렌더링할 페이징 수 => 1,2,3,4,5,6,7
             const startPage = Math.max(1,
                 parseInt(page.number+1) - Math.floor(renderNumbers / 2) > page.totalPages - renderNumbers
@@ -90,6 +91,8 @@ const PostDetail = () => {
 
     const commentNumbers = renderPageNumbers(commentPage);
 
+    const jwtUsername = localStorage.getItem("access") ? jwtDecode(localStorage.getItem("access")).username : null;
+
     return (
         <div className={"PostDetail"}>
             <section className={"header-section"}>
@@ -99,7 +102,7 @@ const PostDetail = () => {
             {/* 댓글 내용 부분*/}
             <section className={"post-content-section"}>
                 <PostContent {...post}/>
-                {post.email === jwtDecode(localStorage.getItem("access")).username && (
+                {post.email === jwtUsername && (
                     <NavButton text={"수정하기"} navPath={`/posts/${id}/edit`} className={"post-edit-btn"}/>
                 )}
             </section>

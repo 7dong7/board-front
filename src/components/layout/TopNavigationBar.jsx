@@ -33,7 +33,9 @@ const TopNavigationBar = () => {
                 withCredentials: true,
             });
             localStorage.removeItem("access");
+            localStorage.removeItem("verifyPassword");
             auth.setIsLogged(false);
+            auth.setVerifyPassword(false);
             window.location.href = '/';
         } catch (error) {
             console.log("error: ", error);

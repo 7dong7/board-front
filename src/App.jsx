@@ -24,8 +24,11 @@ import {Routes, Route, useLocation} from "react-router-dom";
 import {ApiProvider} from "./api/ApiContext.jsx";
 import {PublicApiProvider} from "./api/PublicApi.jsx";
 import {AuthProvider} from "./contexts/AuthContext.jsx";
+import ProtectedRoute from "./components/oauth/ProtectedRoute.jsx";
 
 // 로그인 전역 관리 context
+
+
 
 
 function App() {
@@ -51,8 +54,13 @@ function App() {
                     <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
 
                     <Route path={"/members/:id"} element={<MemberDetail />}/>
-                    <Route path={"/members/:id/verify-password"} element={<MemberVerify />}/>
-                    <Route path={"/members/:id/edit"} element={<MemberEdit />}/>
+
+                    <Route path={"/members/:id/verify-password"}
+                           element={<ProtectedRoute element={<MemberVerify />}/>}
+                    />
+                    <Route path={"/members/:id/edit"}
+                           element={<ProtectedRoute element={<MemberEdit />} requiredVerificationPassword />}
+                    />
                 </Routes>
             </AuthProvider>
             </PublicApiProvider>

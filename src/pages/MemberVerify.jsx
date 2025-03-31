@@ -8,7 +8,7 @@ import Line from "../components/common/Line.jsx";
 // 훅
 import {useState} from "react";
 import {useAuth} from "../contexts/AuthContext.jsx";
-import {Navigate, useParams} from "react-router-dom"; // 페이지 이동
+import {Navigate, useNavigate, useParams} from "react-router-dom"; // 페이지 이동
 import {jwtDecode} from "jwt-decode";
 import {useApi} from "../api/ApiContext.jsx"; // jwt 해석
 
@@ -35,19 +35,11 @@ import {useApi} from "../api/ApiContext.jsx"; // jwt 해석
  *  로그인 여부, 로그인한 이후 보인 정보 수정 확인
  */
 const MemberVerify = () => {
-    const auth = useAuth();
-    const access = localStorage.getItem("access");
     const {id} = useParams();
     const [password, setPassword] = useState(); // 비밀번호 확인시 보낼 password 값
+    const auth = useAuth();
+    const nav = useNavigate();
     const api = useApi();
-
-// ===== 접근자 확인 ===== //
-    if (!auth.isLogged
-        && !!access
-        && String(id) !== String(jwtDecode(localStorage.getItem("access")).id)) {
-        alert("잘못된 접근입니다");
-        return <Navigate to={"/posts"} replace={true}/>;
-    }
 
     // 비밀번호 입력 이벤트
     const onChangePassword = (e) => {
@@ -65,10 +57,14 @@ const MemberVerify = () => {
                 },
             });
             if (response.status === 200) {
-                console.log("비밀번호 통과");
+                localStorage.setItem("verifyPassword", true);
+                auth.setVerifyPassword(true);
+                nav(`/members/${id}/edit`);
             }
         } catch (error) {
             console.log("error:", error);
+        }finally {
+            setPassword("");
         }
     }
 
@@ -90,6 +86,7 @@ const MemberVerify = () => {
             <section className={"MemberVerify-password-section"}>
                 <label>비밀번호 확인</label>
                 <input
+                    value={password}
                     onKeyDown={onEnter}
                     onChange={onChangePassword}
                     type="password"

@@ -18,24 +18,19 @@
 .PostItem > div:nth-child(1) { /* postId: 글 번호*/
     width: 110px;
     text-align: center;
-
 }
-
 .PostItem > div:nth-child(2) { /* title: 글 제목 */
     flex: 1;
     cursor: pointer;
 }
-
 .PostItem > div:nth-child(3) { /* viewCount: 조회수 */
     width: 90px;
     text-align: center;
-
 }
-
 .PostItem > div:nth-child(4) { /* nickname: 작성자 닉네임 */
     width: 130px;
     text-align: center;
-
+    cursor: pointer;
 }
 
 .PostItem > div:nth-child(5) { /* createdAt: 작성일 */
