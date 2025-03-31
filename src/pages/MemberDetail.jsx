@@ -55,7 +55,6 @@ const MemberDetail = () => {
     // 페이징바 설정 // 페이지 객체를 설정으로 넣어주면 된다
     const renderPageNumbers = (page) => { // 페이징 렌더링을 기준점이 필요함
         if (page) {
-            console.log("page:", page);
             const renderNumbers = 7; // 렌더링할 페이징 수 => 1,2,3,4,5,6,7
             const startPage = Math.max(1,
                 parseInt(page.number+1) - Math.floor(renderNumbers / 2) > page.totalPages - renderNumbers
@@ -120,7 +119,7 @@ const MemberDetail = () => {
                     size={"h2"}
                     color={"basic"}/>
                 <NavButton className={"MemberDetail-edit"}
-                    navPath={`/members/${id}/edit`}
+                    navPath={`/members/${id}/verify-password`}
                     text={"정보 수정"} />
             </section>
             <Line/>

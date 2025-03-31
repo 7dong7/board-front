@@ -1,0 +1,100 @@
+/* 페이지 등장 애니메이션 설정 */
+@keyframes fadeIn {
+    from { /* 애니메이션 시작 상태*/
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { /* 애니메이션 종료 상태 */
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 페이지 컨테이너 설정 */
+.MemberVerify {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+
+    width: 500px;
+    margin-top: 50px;
+    padding: 30px 30px;
+
+    background-color: white;
+    border-radius: 8px;
+
+    /**
+        box-shadow: [inset] offset-x offset-y blur-radius spread-radius color;
+        값들을 조합하여 그림자의 위치, 크기, 색상등을 설정
+
+        [inset] (선택적): 내부 그림자 설정 inner shadow
+
+        offset-x: 그림자의 수평 (가로 이동 거리)
+            양수 - 오른쪽
+            음수 - 왼쪽
+            단위 - px, em, rem 등
+
+        offset-y: 그림자의 수직 (세로 이동 거리)
+            양수 - 아래
+            음수 - 위
+
+        spread-radius (선택적): 그림자 확산 반경
+            양수 - 그림자가 바깥으로
+            음수 - 안쪽으로
+            기본값 - 0 (확산없음)
+
+        color: 그림자의 색상
+     */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 스타일 설정 */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+/* 비밀번호 입력 섹션 */
+.MemberVerify-password-section {
+    flex: 1;
+}
+/* 비밀번호 라벨 */
+.MemberVerify-password-section > label {
+    display: inline-block;
+    font-size: 13pt;
+    font-weight: bold;
+    color: #2c3e4e;
+    margin: 10px 0;
+}
+/* 비밀번호 입력 input*/
+.MemberVerify-password {
+    all: unset;
+
+    padding: 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid #c6c6c6;
+    border-radius: 4px;
+    transition: .1s;
+}
+.MemberVerify-password:focus{
+    transition: .2s;
+    border: 1px solid #888888;
+}
+
+/* 비밀번호 확인 버튼 */
+.MemberVerify-btn {
+    all: unset;
+    background-color: #2c3e4e;
+    color: white;
+    border-radius: 5px;
+
+    display: flex;
+    justify-self: center;
+    margin: 30px 0 0 0 ;
+    padding: 8px 30px;
+
+    cursor: pointer;
+    transition: .1s;
+}
+.MemberVerify-btn:hover {
+    background-color: #5481a6;
+    transition: .2s;
+}

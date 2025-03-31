@@ -10,7 +10,8 @@ import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
 import PostNew from "./pages/PostNew.jsx"; // 게시글 작성
 import PostEdit from "./pages/PostEdit.jsx"; // 게시글 수정
 import MemberDetail from "./pages/MemberDetail.jsx"; // 사용자 정보
-import MemberEdit from "./pages/MemberEdit.jsx";
+import MemberVerify from "./pages/MemberVerify.jsx"; // 사용자 정보 수정 시 비밀번호를 확인하는 페이지
+import MemberEdit from "./pages/MemberEdit.jsx"; // 사용자의 정보를 수정하는 페이지
 
 // OAuth2 정리
 import OAuth2Handler from "./components/oauth/OAuth2Handler.jsx";
@@ -50,6 +51,7 @@ function App() {
                     <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
 
                     <Route path={"/members/:id"} element={<MemberDetail />}/>
+                    <Route path={"/members/:id/verify-password"} element={<MemberVerify />}/>
                     <Route path={"/members/:id/edit"} element={<MemberEdit />}/>
                 </Routes>
             </AuthProvider>
