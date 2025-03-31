@@ -33,12 +33,8 @@ const Posts = () => {
         size: '20', // 기본 크기 설정
     });
     const [searchParams, setSearchParams] = useSearchParams();// url 파라미터 받기
-    const [postPage, setPostPage] = useState({ // 서버에서 가져온 게시글 목록
-        content: [],
-        totalPages: 0,
-        currentPage: parseInt(searchParams.get('page') || 1, 10),
-    });
-    const [loading, setLoading] = useState(false); // 로딩 중
+    const [postPage, setPostPage] = useState();
+    const [loading, setLoading] = useState(true); // 로딩 중
 
 
     // 게시글 가져오기 (요청)
@@ -56,14 +52,10 @@ const Posts = () => {
                     searchWord: searchParams.get("searchWord"),
                 }
             });
-            setPostPage({
-                content: response.data.content,
-                totalPages: response.data.totalPages,
-                currentPage: searchParams.get("page") || 1,
-            });
+            setPostPage(response.data);
         } catch (error) {
             console.log("error: ", error);
-            setPostPage({content:[], totalPages:0, currentPage: searchParams.page})
+            setPostPage()
         } finally {
             setLoading(false);
         }
@@ -85,16 +77,19 @@ const Posts = () => {
 
 
 // ======== 페이징 처리 ========
-    const getPageNumbers = () => {
-        const {currentPage, totalPages} = postPage;
-        console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
-        const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
-        const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
-        return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
+    // 페이징바 설정 // 페이지 객체를 설정으로 넣어주면 된다
+    const renderPageNumbers = (page) => { // 페이징 렌더링을 기준점이 필요함
+        if (page) {
+            const renderNumbers = 7; // 렌더링할 페이징 수 => 1,2,3,4,5,6,7
+            const startPage = Math.max(1,
+                parseInt(page.number+1) - Math.floor(renderNumbers / 2) > page.totalPages - renderNumbers
+                    ? parseInt(page.totalPages) - renderNumbers + 1
+                    : parseInt(page.number + 1) - Math.floor(renderNumbers / 2)
+            ); // 페이징바의 시작 페이지번호
+            const endPage = Math.min(page.totalPages + 1, startPage + renderNumbers); // 페이징바의 마지막 페이지 번호
+            return Array.from({length: endPage - startPage}, (_, i) => startPage + i);
+        }
     }
-    const pageNumbers = getPageNumbers(); // 페이징 번호 반복수
-    // console.log("pageNumbers:", pageNumbers);
-
 
 // ======== 이벤트 ========
     // 검색 조건 & 검색어 변경 => searchState 에 저장
@@ -143,6 +138,8 @@ const Posts = () => {
         return <div>로딩중...</div>
     }
 
+    const postNumbers = renderPageNumbers(postPage);
+
     return (
         <div className={"Posts"}>
             <section className={"posts-searchBar-section"}>
@@ -163,7 +160,9 @@ const Posts = () => {
             </section>
 
             <section className={"posts-body-content-section"}>
-                {postPage.content.map(
+                {
+                    postPage &&
+                    postPage.content.map(
                         (item) => <PostItem key={item.postId} {...item} />
                 )}
             </section>
@@ -174,9 +173,9 @@ const Posts = () => {
 
             <section className={"paging-nav"}>
                 <Paging
-                    page={postPage}
-                    pageNumbers={pageNumbers}
+                    pageNumbers={postNumbers}
                     handlePageChange={handlePageChange}
+                    page={postPage}
                     />
             </section>
         </div>

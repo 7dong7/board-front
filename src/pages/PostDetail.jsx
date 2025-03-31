@@ -15,6 +15,7 @@ import {useParams, useSearchParams} from "react-router-dom";
 import {usePublicApi} from "../api/PublicApi.jsx";
 import {useAuth} from "../contexts/AuthContext.jsx";
 import {useEffect, useState} from "react";
+import {jwtDecode} from "jwt-decode"; // jwt 해석
 
 // 포맷 훅
 import comment from "../components/common/Comment.jsx";
@@ -26,11 +27,7 @@ const PostDetail = () => {
     const [searchParams, setSearchParams] = useSearchParams() // url 검색어
     const [post, setPost] = useState(); // 게시글 상태
     const [replyTo, setReplyTo] = useState(); // 대댓글의 부모 댓글 번호
-    const [commentPage, setCommentPage] = useState({ // 댓글 상태
-        content: [],
-        totalPages: 0,
-        currentPage: parseInt(searchParams.get('page') || 1, 10)
-    });
+    const [commentPage, setCommentPage] = useState(); // 댓글 페이징
     const [loading, setLoading] = useState(true); // 로딩 상태
 
     const postDetail = async () => {
@@ -50,11 +47,7 @@ const PostDetail = () => {
              */
             // console.log("postDetail response.data: ", response.data);
             setPost(response.data); // post 저장
-            setCommentPage({ // commentPage 저장
-                content: response.data.viewComment.content,
-                totalPages: response.data.viewComment.totalPages,
-                currentPage: searchParams.get("page") || 1,
-            });
+            setCommentPage(response.data.viewComment); // comment 페이지 저장
         } catch (error) {
             console.log("error: ", error);
         } finally {
@@ -66,16 +59,22 @@ const PostDetail = () => {
         postDetail();
     }, [searchParams]);
 
-    // ======== 페이징 처리 ========
-    const getPageNumbers = () => {
-        const {currentPage, totalPages} = commentPage;
-        // console.log(`currentPage: {${currentPage}}, totalPages: {${totalPages}}`);
-        const startPage = Math.max(1, currentPage - 4); // 최소 페이지,현재 페이지 기준 왼쪽으로 3개 표시
-        const endPage = Math.min(currentPage + 4, totalPages); // 현재 페이지 오른쪽 3개, 최대 페이지
-        return Array.from({length: endPage - startPage + 1}, (_, i) => startPage + i);
-    }
-    const pageNumbers = getPageNumbers(); // 페이징 번호 반복수
 
+// ======== 페이징 처리 ========
+
+    // 페이징바 설정 // 페이지 객체를 설정으로 넣어주면 된다
+    const renderPageNumbers = (page) => { // 페이징 렌더링을 기준점이 필요함
+        if (page) {
+            const renderNumbers = 7; // 렌더링할 페이징 수 => 1,2,3,4,5,6,7
+            const startPage = Math.max(1,
+                parseInt(page.number+1) - Math.floor(renderNumbers / 2) > page.totalPages - renderNumbers
+                    ? parseInt(page.totalPages) - renderNumbers + 1
+                    : parseInt(page.number + 1) - Math.floor(renderNumbers / 2)
+            ); // 페이징바의 시작 페이지번호
+            const endPage = Math.min(page.totalPages + 1, startPage + renderNumbers); // 페이징바의 마지막 페이지 번호
+            return Array.from({length: endPage - startPage}, (_, i) => startPage + i);
+        }
+    }
     // 페이지 이동 ( 페이지 네비게이션을 사용하는 이동 )
     const handlePageChange = (newPage) => {
         if(newPage >= 1 && newPage < commentPage.totalPages + 1) { // page 범위 지정 (실제 사용하는 범위를 벗어나지 못함)
@@ -89,7 +88,7 @@ const PostDetail = () => {
         return <div>로딩중...</div>
     }
 
-    const username = localStorage.getItem("username");
+    const commentNumbers = renderPageNumbers(commentPage);
 
     return (
         <div className={"PostDetail"}>
@@ -100,7 +99,7 @@ const PostDetail = () => {
             {/* 댓글 내용 부분*/}
             <section className={"post-content-section"}>
                 <PostContent {...post}/>
-                {post.email === username && (
+                {post.email === jwtDecode(localStorage.getItem("access")).username && (
                     <NavButton text={"수정하기"} navPath={`/posts/${id}/edit`} className={"post-edit-btn"}/>
                 )}
             </section>
@@ -128,7 +127,7 @@ const PostDetail = () => {
                     :
                     <Paging
                         page={commentPage}
-                        pageNumbers={pageNumbers}
+                        pageNumbers={commentNumbers}
                         handlePageChange={handlePageChange}
                     />
                 }

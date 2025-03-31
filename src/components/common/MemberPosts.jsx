@@ -7,7 +7,6 @@ import Header from "./Header.jsx";
 
 const MemberPosts = ({pagePost}) => {
 
-    console.log("pagePost:", pagePost);
     return (
         <div className={"MemberPosts"}>
             <div className={"MemberPosts-column-name"}>

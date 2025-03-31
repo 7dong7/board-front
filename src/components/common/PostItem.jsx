@@ -13,8 +13,6 @@ const PostItem = ({ postId, title, viewCount, nickname, createdAt, style}) => {
         nav(`/posts/${postId}`)
     }
 
-    console.log("style:", style);
-
     return (
         <div className={`PostItem PostItem-${style}`}>
             <div>{postId}</div>

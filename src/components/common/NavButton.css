@@ -25,7 +25,8 @@
 /* 게시글 수정하기 버튼*/
 .post-edit-btn {
     margin:120px 0 0 0;
-    padding: 8px 30px;
+    padding: 5px 20px;
+    font-size: 11pt;
 
     display: flex;
     justify-self: right;
@@ -34,8 +35,23 @@
     color: white;
     font-weight: bold;
     border-radius: 5px;
-
 }
 .post-edit-btn:hover {
     background-color: #ff8585;
+}
+
+/* 사용자 정보 수정 버튼*/
+.MemberDetail-edit {
+    padding: 3px 15px;
+    font-size: 11pt;
+    color: white;
+    background-color: #fa5b5b;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .2s;
+    cursor: pointer;
+}
+.MemberDetail-edit:hover {
+    background-color: #fa3c3c;
+    transition: .2s;
 }

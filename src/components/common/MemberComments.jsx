@@ -6,8 +6,6 @@ import CommentItem from "./CommentItem.jsx";
 
 const MemberComments = ({pageComment}) => {
 
-    console.log("pageComment:", pageComment);
-
     return (
         <div className={"MemberComments"}>
             <div className={"MemberComments-column-name"}>

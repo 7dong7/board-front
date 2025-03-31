@@ -6,8 +6,6 @@ import {format} from "date-fns";
 
 const MemberInfo = ({member}) => {
 
-    console.log("MemberInfo member:", member);
-
     return (
         <div className={"MemberInfo"}>
             <div className={"MemberInfo-column"}>
