@@ -12,6 +12,7 @@ import PostEdit from "./pages/PostEdit.jsx"; // 게시글 수정
 import MemberDetail from "./pages/MemberDetail.jsx"; // 사용자 정보
 import MemberVerify from "./pages/MemberVerify.jsx"; // 사용자 정보 수정 시 비밀번호를 확인하는 페이지
 import MemberEdit from "./pages/MemberEdit.jsx"; // 사용자의 정보를 수정하는 페이지
+import MemberNew from "./pages/MemberNew.jsx";
 
 // OAuth2 정리
 import OAuth2Handler from "./components/oauth/OAuth2Handler.jsx";
@@ -45,22 +46,23 @@ function App() {
 
                 <Routes>{/* 경로 설정 */}
                     <Route path={"/"} element={<Posts/>}/>
-                    <Route path={"/posts"} element={<Posts/>}/> {/* 게시글 목록*/}
-                    <Route path={"/posts/:id"} element={<PostDetail />} />  {/* 게시글 내용 */}
-                    <Route path={"/posts/new"} element={<PostNew />} /> {/* 게시글 작성 */}
-                    <Route path={"/posts/:postId/edit"} element={<PostEdit />}/> {/* 게시글 수정*/}
+                    <Route path={"/posts"} element={<Posts/>}/> {/* 게시글 목록 페이지*/}
+                    <Route path={"/posts/:id"} element={<PostDetail />} />  {/* 게시글 내용 페이지*/}
+                    <Route path={"/posts/new"} element={<PostNew />} /> {/* 게시글 작성 페이지 */}
+                    <Route path={"/posts/:postId/edit"} element={<PostEdit />}/> {/* 게시글 수정 페이지 */}
+
 
                     <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
                     <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
 
-                    <Route path={"/members/:id"} element={<MemberDetail />}/>
-
+                    <Route path={"/members"} element={<MemberNew />}/> {/* 사용자 새로 가입 */}
+                    <Route path={"/members/:id"} element={<MemberDetail />}/> {/* 사용자 정보 보기 */}
                     <Route path={"/members/:id/verify-password"}
                            element={<ProtectedRoute element={<MemberVerify />}/>}
-                    />
+                    /> {/* 사용자의 정보를 수정하기 위한 비밀번호 확인 검증 */}
                     <Route path={"/members/:id/edit"}
                            element={<ProtectedRoute element={<MemberEdit />} requiredVerificationPassword />}
-                    />
+                    /> {/* 비밀번호 확인이후 접근가능한 사용자 정보 수정 페이지 */}
                 </Routes>
             </AuthProvider>
             </PublicApiProvider>

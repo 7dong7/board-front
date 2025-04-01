@@ -133,7 +133,6 @@ const MemberDetail = () => {
                                navPath={`/members/${id}/verify-password`}
                                text={"정보 수정"}/>
                 }
-
             </section>
             <Line/>
 
@@ -156,7 +155,6 @@ const MemberDetail = () => {
                                 page={member.pagePost}/>
                         </div>
                 }
-
             </section>
 
             <section className={"MemberDetail-comments-section"}>
@@ -173,9 +171,7 @@ const MemberDetail = () => {
                                 handlePageChange={commentHandlePageChange}
                                 page={member.pageComment}/>
                         </div>
-
                 }
-
             </section>
         </div>
     );

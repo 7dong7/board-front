@@ -83,6 +83,27 @@
     background-color: #525659;
 }
 
+/* 회원가입 */
+.Login-newMember-div { /* 회원가입 */
+    display: flex;
+    justify-content: center;
+    color: #4975eb;
+    font-size: 10.8pt;
+    margin-bottom: 15px;
+}
+.Login-newMember {
+    margin-right: 10px;
+}
+.Login-newMember-btn { /* 회원가입페이지 이동 버튼*/
+    all: unset;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.Login-newMember-btn:hover {
+    font-weight: bold;
+}
+
+
 /* 외부 로그인 버튼 모음*/
 .OAuth2-login {
     display: flex;

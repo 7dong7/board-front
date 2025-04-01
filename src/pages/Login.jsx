@@ -91,7 +91,14 @@ const Login = () => {
                        onKeyDown={onKeyDown}/>
             </div>
 
-            {/*<Link />*/}
+            <div className={"Login-newMember-div"}>
+                <span className={"Login-newMember"}>아직 회원이 아니신가요?</span>
+                <button
+                    className={"Login-newMember-btn"}
+                    onClick={() => nav("/members")}>
+                    회원가입 하기
+                </button>
+            </div>
 
             <button
                 className={"login-btn"} onClick={loginEvent}>
