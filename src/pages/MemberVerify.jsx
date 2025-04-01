@@ -36,15 +36,12 @@ import {useApi} from "../api/ApiContext.jsx"; // jwt 해석
  */
 const MemberVerify = () => {
     const {id} = useParams();
-    const [password, setPassword] = useState(); // 비밀번호 확인시 보낼 password 값
+    const [password, setPassword] = useState(""); // 비밀번호 확인시 보낼 password 값
     const auth = useAuth();
     const nav = useNavigate();
     const api = useApi();
 
-    // 비밀번호 입력 이벤트
-    const onChangePassword = (e) => {
-        setPassword(e.target.value);
-    }
+
 
     const verifyApi = async () => {
         try {
@@ -52,7 +49,7 @@ const MemberVerify = () => {
                 method: "POST",
                 url: `/api/auth/verify-password`,
                 data: {
-                    memberId: id,
+                    memberId:id,
                     password:password
                 },
             });
@@ -68,6 +65,11 @@ const MemberVerify = () => {
         }
     }
 
+// ===== 이벤트 ===== //
+    // 비밀번호 입력 이벤트
+    const onChangePassword = (e) => {
+        setPassword(e.target.value);
+    }
     // 확인 클릭
     const verifyApiRequest = () => {
         verifyApi()

@@ -131,7 +131,7 @@ const MemberDetail = () => {
                     editCondition &&
                     <NavButton className={"MemberDetail-edit"}
                                navPath={`/members/${id}/verify-password`}
-                               text={"정보 수정"} />
+                               text={"정보 수정"}/>
                 }
 
             </section>
@@ -143,20 +143,39 @@ const MemberDetail = () => {
 
             <section className={"MemberDetail-posts-section"}>
                 <Header title={"작성 게시글 목록"} size={"h3"} color={"basic"}/>
-                <MemberPosts pagePost={member.pagePost} />
-                <Paging
-                    pageNumbers={postNumbers}
-                    handlePageChange={postHandlePageChange}
-                    page={member.pagePost}/>
+                {   // 작성한 게시글이 있는 없는 경우 true 있는 경우 false
+                    member.pagePost.empty
+                        ?
+                        <div className={"MemberDetail-posts-empty"}>작성한 게시글이 없습니다</div>
+                        :
+                        <div>
+                            <MemberPosts pagePost={member.pagePost}/>
+                            <Paging
+                                pageNumbers={postNumbers}
+                                handlePageChange={postHandlePageChange}
+                                page={member.pagePost}/>
+                        </div>
+                }
+
             </section>
 
             <section className={"MemberDetail-comments-section"}>
                 <Header title={"작성 댓글 목록"} size={"h3"} color={"basic"}/>
-                <MemberComments pageComment={member.pageComment} />
-                <Paging
-                    pageNumbers={commentNumbers}
-                    handlePageChange={commentHandlePageChange}
-                    page={member.pageComment}/>
+                {   // 작성한 댓글이 없는 경우
+                    member.pageComment.empty
+                        ?
+                        <div className={"MemberDetail-posts-empty"}>작성한 댓글이 없습니다</div>
+                        :
+                        <div>
+                            <MemberComments pageComment={member.pageComment}/>
+                            <Paging
+                                pageNumbers={commentNumbers}
+                                handlePageChange={commentHandlePageChange}
+                                page={member.pageComment}/>
+                        </div>
+
+                }
+
             </section>
         </div>
     );
