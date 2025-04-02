@@ -27,7 +27,6 @@ const MemberNew = () => {
 
     // 회원 가입 요청
     const newMember = async () => {
-        console.log("member:", member);
         try {
             const response = await publicApi({
                 method: "POST",
@@ -35,8 +34,10 @@ const MemberNew = () => {
                 data: member
             });
             console.log("response:", response);
+            nav("/login");
         } catch (error) {
             console.log("error:", error);
+            setErrors(error.response.data.data);
         }
     }
 
@@ -70,6 +71,8 @@ const MemberNew = () => {
                 || parseInt(day) !== date.getDate() // "19970231" 날짜 형식은 맞으나 존재하지 않는 날짜
                 || date > new Date() ) { // 미래의 날짜는 사용할 수 없음
                 return "올바른 생년월일 형식이 아닙니다.";
+            } else {
+                return true;
             }
         } // frontNum 유효성 검증
     }
@@ -90,13 +93,11 @@ const MemberNew = () => {
                 value = value.slice(0, 8) + '-' + value.slice(8);
             }
         }
-
-        // 값 변경
+        // 회원가입시 보낼 데이터 수정 이벤트
         setMember({
             ...member,
             [name]: value
         });
-
         // 입력필드 유효성 검증
         const valid = validRegex[name];
         if (valid) {
@@ -116,21 +117,23 @@ const MemberNew = () => {
 
         // 각 오류 검증을 위한 정규식을 담은 필드 값을 반복한다
         Object.keys(validRegex).forEach((field) => {
-            const valid = validRegex[field];
-            const value = member[field];
-            const error = valid(value, member);
-            if(error !== true) allError[field] = error; // 오류가 조재하는경우 오류객체에 필드별 오류를 담는다 
+            const valid = validRegex[field]; // 각 필드를 검증하는 function
+            const value = member[field];    // 각 필드의 검증을 받아야된느 입력된 값
+            const error = valid(value, member); //
+            // console.log(valid, value, error);
+            if(error !== true) allError[field] = error; // 오류가 조재하는경우 오류객체에 필드별 오류를 담는다
         });
 
+        // console.log("allError 에 에러가 담겨있는면 회원가입 실행 안됨( {}로 출력되면 회원 가입 실행 )",allError);
         // 오류가 존재하는 경우 없앰
         if (Object.keys(allError).length > 0) {
             setErrors(allError);
-            console.log(errors);
+            // console.log("errors 에 값이 있어서 회원가입 로직 실행안됨:", errors);
             return;
         }
 
         if (member) {
-            console.log("회원가입요청");
+            console.log("프론트의 유효성 검사를 뚫고 회원가입 로직 실행");
             newMember();
         }
     }
