@@ -48,24 +48,55 @@ const MemberNew = () => {
         confirmPassword: (value, form) => value === form.password || '비밀번호가 일치하지 않습니다.',
         name: (value) => /^[가-힣a-zA-Z]{2,10}$/.test(value) || '2~10자, 한글 또는 영문만 가능합니다.',
         nickname: (value) => /^[가-힣a-zA-Z0-9]{2,12}$/.test(value) || '2~12자, 특수문자는 불가합니다.',
-        mobile: (value) => /^010-\d{4}-\d{4}$/.test(value) || '010-1234-5678 형식으로 입력하세요.',
+        mobile: (value) => /^(010|011)-\d{4}-\d{4}$/.test(value) || '010-1234-5678 형식으로 입력하세요.',
         backNum: (value) => /^[1-4]$/.test(value) || '1, 2, 3, 4 중 하나를 입력하세요.',
         frontNum: (value) => {
-            if (!/^\d{8}$/.test(value)) { // 형식이 맞지 않는 경우
-                return '예) 19970312 형식으로 입력하세요.';
+            /**
+             *  1. 8자리 숫자 검증 => yyyyMMdd
+             */
+            if (!/^\d{8}$/.test(value)) {
+                return '예) 19990325 형식으로 입력하세요.'; // 형식이 맞지 않는 경우
+            } // 숫자의 형식이 맞는 경우 이어서 진행
+            /**
+             *  2. 날짜 유효성 검사
+             *      - 입력받을 8자리의 숫자가 날짜 형식이 맞는지
+             *      - 형식은 맞지만 존재하는 날짜인지
+             *      - 미래의 날짜는 사용할 수 없음
+             */
+            const year = value.slice(0, 4); const month = value.slice(4, 6); const day = value.slice(6, 8);
+            const date = new Date(`${year}-${month}-${day}`);
+            if (isNaN(date.getTime()) // 올바르지 않는 날자 형식
+                || parseInt(month) !== date.getMonth() + 1 // "19970231" 형식은 맞으나 존재하지 않는 날짜 
+                || parseInt(day) !== date.getDate() // "19970231" 날짜 형식은 맞으나 존재하지 않는 날짜
+                || date > new Date() ) { // 미래의 날짜는 사용할 수 없음
+                return "올바른 생년월일 형식이 아닙니다.";
             }
-            const date = new Date(value.slice(0, 4), value.slice(4, 6) - 1, value.slice(6, 8));
-            return !isNaN(date.getTime()) && date < new Date() || '유효한 생년월일이 아닙니다.'
-        }
+        } // frontNum 유효성 검증
     }
     // 필드값 변경시 유효성 검증 이벤트
     const onChangeData = (e) => {
-        const {name, value} = e.target;
+        let {name, value} = e.target;
+        // 생년월일 제한
+        if (name === "frontNum" || name === "backNum") { // 생년월일 검증
+            if (!/^\d*$/.test(value)) return;
+        }
+        // 모바일 번호 제한
+        if (name === "mobile") {
+            // 올바른 위치에 대시 추가
+            if (value.length > 3 && value.charAt(3) !== '-') {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            }
+            if (value.length > 8 && value.charAt(8) !== '-') {
+                value = value.slice(0, 8) + '-' + value.slice(8);
+            }
+        }
+
+        // 값 변경
         setMember({
             ...member,
             [name]: value
         });
-        
+
         // 입력필드 유효성 검증
         const valid = validRegex[name];
         if (valid) {
@@ -78,6 +109,7 @@ const MemberNew = () => {
             }));
         }
     }
+
     // 회원 가입 버튼 클릭 이벤트
     const newMemberHandler = () => {
         const allError = {}; // 각 필드별로 오류를 담을 객체
@@ -99,7 +131,7 @@ const MemberNew = () => {
 
         if (member) {
             console.log("회원가입요청");
-            // newMember();
+            newMember();
         }
     }
 
@@ -120,6 +152,7 @@ const MemberNew = () => {
                         name={"email"}
                         value={member.email}
                         type={"email"}
+                        maxLength={40}
                         className={"MemberNew-member-input"}
                         placeholder={"아이디로 사용할 이메일을 입력해주세요."}/>
                     {
@@ -137,6 +170,7 @@ const MemberNew = () => {
                         name={"password"}
                         value={member.password}
                         type={"password"}
+                        maxLength={20}
                         className={"MemberNew-member-input"}
                         placeholder={"비밀번호"}/>
                     <input
@@ -144,6 +178,7 @@ const MemberNew = () => {
                         name={"confirmPassword"}
                         value={member.confirmPassword}
                         type={"password"}
+                        maxLength={20}
                         className={"MemberNew-member-input MemberNew-member-confirmPassword"}
                         placeholder={"비밀번호 확인"}/>
                     {
@@ -164,6 +199,7 @@ const MemberNew = () => {
                         onChange={onChangeData}
                         value={member.name}
                         name={"name"}
+                        maxLength={10}
                         className={"MemberNew-member-input"}
                         placeholder={"이름"}/>
                     {
@@ -197,6 +233,7 @@ const MemberNew = () => {
                         value={member.mobile}
                         name={"mobile"}
                         className={"MemberNew-member-input"}
+                        maxLength={13}
                         placeholder={"휴대폰"}/>
                     {
                         errors.mobile &&
@@ -214,14 +251,16 @@ const MemberNew = () => {
                             value={member.frontNum}
                             name={"frontNum"}
                             className={"MemberNew-member-input"}
-                            placeholder={"앞자리"}/>
+                            maxLength={8}
+                            placeholder={"생년월일 8자리 숫자"}/>
                         <span> - </span>
                         <input
                             onChange={onChangeData}
                             value={member.backNum}
                             name={"backNum"}
                             className={"MemberNew-member-input"}
-                            placeholder={"뒷자리"}/>
+                            maxLength={1}
+                            placeholder={"주민번호 뒷자리 하나"}/>
                     </div>
                     {
                         errors.frontNum &&
