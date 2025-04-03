@@ -34,9 +34,6 @@
     display: flex;
     flex-direction: column;
     gap:20px;
-
-    min-height: 100px;
-
 }
 
 /* 공통 데이터 영역 설정 */

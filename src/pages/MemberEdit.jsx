@@ -25,8 +25,9 @@ const MemberEdit = () => {
                     id: id
                 }
             });
-            console.log("response:", response);
-            setProfile(response.data);
+            console.log("response.data:", response.data);
+
+            setProfile(response.data.data);
 
             setLoading(false);
         } catch (error) {
@@ -35,34 +36,11 @@ const MemberEdit = () => {
     }
     // 사용자의 정보를 수정 요청
     const editProfile = async () => {
-        console.log(profile);
-        const propdata = {
-            nickname: "nickanme",
-            mobile: "02020,,200",
-            active: "라ㅓㅁㄴㅇ",
-        }
-        console.log(propdata);
         try {
             const response = await api({
                 method: "PATCH",
                 url: `/api/members/${id}`,
                 data: profile // 수정된 데이터 요청시 보냄
-                /**
-                 *  데이터 요청시 차이
-                 *  data: profile
-                 *      {
-                 *          "nickname": "member1",
-                 *          "mobile": "010-3333-3333"
-                 *      }
-                 *
-                 *  data: {profile}
-                 *      {
-                 *          "profile": {
-                 *              "nickname": "member1",
-                 *              "mobile": "010-3333-3333"
-                 *          }
-                 *      }
-                 */
             });
             console.log("response:", response);
             nav(`/members/${id}`);
@@ -85,18 +63,20 @@ const MemberEdit = () => {
         }
     }
 
-
     useEffect(() => {
         memberProfile();
     }, []);
 
 // ============ 이벤트 ============== //
+    // 회원 정보 수정 입력 이벤트
     const onChangeProfile = (e) => { // 회원 정보수 입력
         setProfile({
             ...profile,
             [e.target.name]: e.target.value,
         });
-    }
+    };
+    
+    
     const editProfileHandler = () => { // 회원 정보 수정 요청
         editProfile()
     }
@@ -120,27 +100,48 @@ const MemberEdit = () => {
             </section>
             <Line/>
 
-            <section className={"MemberEdit-section"}>
-                <label>닉네임</label>
-                <input
-                    className={"nickname"}
-                    name={"nickname"}
-                    onChange={onChangeProfile}
-                    value={profile.nickname}/>
+            <section className={"MemberEdit-data-form-section"}>
+                <div className={"MemberEdit-data-form"}>
+                    <label>닉네임</label>
+                    <input
+                        className={"nickname"}
+                        name={"nickname"}
+                        onChange={onChangeProfile}
+                        value={profile.nickname}/>
+                </div>
+
+                <div className={"MemberEdit-data-form"}>
+                    <label>모바일</label>
+                    <input
+                        className={"mobile"}
+                        name={"mobile"}
+                        onChange={onChangeProfile}
+                        value={profile.mobile || ''}/>
+                </div>
+
+                <div className={"MemberEdit-data-form"}>
+                    <label>새 비밀번호</label>
+                    <input
+                        className={"MemberEdit-data-password"}
+                        name={"password"}
+                        type={"password"}
+                        maxLength={20}
+                        onChange={onChangeProfile}
+                        value={profile.password}
+                        placeholder={"새 비밀번호"}/>
+                    <input
+                        className={"MemberEdit-data-confirmPassword"}
+                        name={"confirmPassword"}
+                        type={"password"}
+                        maxLength={20}
+                        value={profile.confirmPassword}
+                        placeholder={"비밀번호 확인"}/>
+                </div>
             </section>
 
-            <section className={"MemberEdit-section"}>
-                <label>모바일</label>
-                <input
-                    className={"mobile"}
-                    name={"mobile"}
-                    onChange={onChangeProfile}
-                    value={profile.mobile || ''}/>
-            </section>
-
-            <section className={"MemberEdit-section MemberEdit-btn-section"}>
+            <section className={"MemberEdit-data-form-section MemberEdit-btn-section"}>
                 <button onClick={editProfileHandler}
-                    className={"MemberEdit-btn MemberEdit-edit-btn"}>
+                        className={"MemberEdit-btn MemberEdit-edit-btn"}>
                     수정하기
                 </button>
                 <button
