@@ -28,6 +28,7 @@ const Login = () => {
         username: "",
         password: "",
     }); // login state
+    const [error, setError] = useState("");
 
     // 로그인 state 변경 이벤트
     const onChangeLoginForm = (e) => {
@@ -57,6 +58,8 @@ const Login = () => {
             nav("/"); // 로그인 성공후 페이지 메인 페이지로 이동
         } catch (error) {
             console.log("error: ", error);
+            console.log("message: ", error.response.data.error);
+            setError(error.response.data.error);
         }
     };
 
@@ -79,7 +82,7 @@ const Login = () => {
                        type={"text"}
                        placeholder={"아이디를 입력하세요"}
                        value={form.username}
-                       onChange={onChangeLoginForm} />
+                       onChange={onChangeLoginForm}/>
 
                 <label>비밀번호</label>
                 <input name={"password"}
@@ -89,6 +92,12 @@ const Login = () => {
                        value={form.password}
                        onChange={onChangeLoginForm}
                        onKeyDown={onKeyDown}/>
+                {
+                    error &&
+                    <div className={"Login-error"}>
+                        {error}
+                    </div>
+                }
             </div>
 
             <div className={"Login-newMember-div"}>
@@ -108,9 +117,9 @@ const Login = () => {
             <Line/>
 
             <div className={"OAuth2-login"}>
-                <GoogleAuth />
-                <NaverAuth />
-                <KakaoAuth />
+                <GoogleAuth/>
+                <NaverAuth/>
+                <KakaoAuth/>
             </div>
         </div>
     );

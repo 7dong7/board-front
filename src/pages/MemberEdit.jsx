@@ -54,9 +54,13 @@ const MemberEdit = () => {
         try {
             const response = await api({
                 method: "DELETE",
-                url:`/api/members/${id}`,
-            })
+                url: `/api/members/${id}`,
+            });
+            localStorage.removeItem("access");
+            localStorage.removeItem("verifyPassword");
             console.log("response:", response);
+
+            nav(`/posts`);
         } catch (error) {
             console.log("error:", error);
         }
