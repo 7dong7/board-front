@@ -202,7 +202,7 @@ const MemberNew = () => {
                         onChange={onChangeData}
                         value={member.name}
                         name={"name"}
-                        maxLength={10}
+                        maxLength={12}
                         className={"MemberNew-member-input"}
                         placeholder={"이름"}/>
                     {
@@ -219,6 +219,7 @@ const MemberNew = () => {
                         onChange={onChangeData}
                         value={member.nickname}
                         name={"nickname"}
+                        maxLength={20}
                         className={"MemberNew-member-input"}
                         placeholder={"닉네임"}/>
                     {

@@ -109,3 +109,10 @@ input.mobile {
 .MemberEdit-delete-btn:hover {
     background-color: #101010;
 }
+
+/* 필드 오류 표시 */
+.MemberEdit-errorField {
+    color: #ff6a6a;
+    padding: 2px 0 0 10px;
+    font-size: 10pt;
+}

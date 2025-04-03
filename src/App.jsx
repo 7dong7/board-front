@@ -20,7 +20,7 @@ import OAuth2Handler from "./components/oauth/OAuth2Handler.jsx";
 
 // 경로 설정
     // 조건부 로케이션
-import {Routes, Route, useLocation, Outlet} from "react-router-dom";
+import {Routes, Route, Outlet} from "react-router-dom";
 
 // api 제공
 import {ApiProvider} from "./api/ApiContext.jsx";
