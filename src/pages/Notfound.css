@@ -1,0 +1,27 @@
+.Notfound {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+
+    padding: 50px 30px;
+    margin: 200px 0 0 0;
+    width: 500px;
+    min-height: 10px;
+
+    background-color: white;
+    border: 2px solid #ff6868;
+    border-radius: 10px;
+}
+
+.Notfound-left {
+    margin: auto;
+}
+
+.Notfound span {
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.Notfound-bold {
+    color: #f66464;
+}

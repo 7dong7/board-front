@@ -43,3 +43,8 @@
 .color-black {
     color: #000000;
 }
+
+/* 에러 페이지 */
+.color-error {
+    color: #ff5e5e;
+}
