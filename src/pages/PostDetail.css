@@ -38,4 +38,29 @@
     justify-self: center;
 }
 
+/* 삭제하기 버튼 */
+.post-content-btn {
+    display: flex;
+    justify-content: right;
+    gap: 15px;
+}
+.post-content-btn > .post-delete-btn {
+    all: unset;
+    margin:120px 0 0 0;
+    padding: 5px 20px;
+    font-size: 11pt;
+
+    display: flex;
+    justify-self: right;
+
+    background-color: #515151;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+.post-content-btn > .post-delete-btn:hover {
+    background-color: #131313;
+}
 

@@ -6,6 +6,7 @@ import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 // 페이지
 import Notfound from "./pages/errors/Notfound.jsx"; // 에러 페이지: 잘못된 경로, 잘못된 요청
 import NotfoundMember from "./pages/errors/NotfoundMember.jsx"; // 존재하지 않는 회원, 탈퇴한 회원 조회
+import DeletePostError from "./pages/errors/DeletePostError.jsx"; // 삭제된 게시물에 접근하려는 경우
 
 import Login from "./pages/Login.jsx"; // 로그인 페이지
 import Posts from "./pages/Posts.jsx"; // 게시글 목록
@@ -56,7 +57,8 @@ function App() {
                         <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
                         <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
                         <Route path={"*"} element={<Notfound />}/> {/* 정의되지 않은 경로 */}
-                        <Route path={"/NotFoundMember"} element={<NotfoundMember />}/> {/* 이동시킬 경로*/}
+                        <Route path={"/NotFoundMember"} element={<NotfoundMember />}/> {/* 잘못된 사용자를 조회하려는 경우*/}
+                        <Route path={"/DeletePostError"} element={<DeletePostError />} /> {/* 삭제된 게시글을 조회하려는 경우 */}
                     </Route>
 
                     <Route element={<MainLayout />}> {/* 헤더 네비게이션바가 있는 페이지 */}

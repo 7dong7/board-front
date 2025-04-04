@@ -11,7 +11,7 @@ import Paging from "../components/common/Paging.jsx";
 import CreateComment from "../components/common/CreateComment.jsx";
 
 // 훅
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {usePublicApi} from "../api/PublicApi.jsx";
 import {useAuth} from "../contexts/AuthContext.jsx";
 import {useEffect, useState} from "react";
@@ -19,15 +19,18 @@ import {jwtDecode} from "jwt-decode"; // jwt 해석
 
 // 포맷 훅
 import comment from "../components/common/Comment.jsx";
+import {useApi} from "../api/ApiContext.jsx";
 
 const PostDetail = () => {
     const auth = useAuth(); // 로그인 상태
     const {id} = useParams(); // 동적 경로 매핑
     const publicApi = usePublicApi(); // api 요청
+    const api = useApi(); // 인증 api 요청
     const [searchParams, setSearchParams] = useSearchParams() // url 검색어
     const [post, setPost] = useState(); // 게시글 상태
     const [replyTo, setReplyTo] = useState(); // 대댓글의 부모 댓글 번호
     const [commentPage, setCommentPage] = useState(); // 댓글 페이징
+    const nav = useNavigate();
     const [loading, setLoading] = useState(true); // 로딩 상태
 
     const postDetail = async () => {
@@ -45,11 +48,12 @@ const PostDetail = () => {
              *  2. 게시글에 대한 댓글
              *  3. 댓글에 대한 대댓글
              */
-            // console.log("postDetail response.data: ", response.data);
+            console.log("postDetail response.data: ", response.data);
             setPost(response.data); // post 저장
             setCommentPage(response.data.viewComment); // comment 페이지 저장
         } catch (error) {
             console.log("error: ", error);
+            nav("/DeletePostError")
         } finally {
             setLoading(false);
         }
@@ -61,7 +65,6 @@ const PostDetail = () => {
 
 
 // ======== 페이징 처리 ========
-
     // 페이징바 설정 // 페이지 객체를 설정으로 넣어주면 된다
     const renderPageNumbers = (page) => { // 페이징 렌더링을 기준점이 필요함
         if (page) {
@@ -84,13 +87,32 @@ const PostDetail = () => {
             });
         }
     };
+// ==== 이벤트 처리 ====
+    // 게시글 삭제 이벤트
+    const onDeletePost = () => {
+        if(confirm("게시글을 정말로 삭제하시겠습니까?\n삭제된 게시글을 더 이상 조회할 수 없습니다.")) {
+            // "예" 클릭시 게시글 삭제 요청
+            try {
+                const response = api({
+                    method: "DELETE",
+                    url: `/api/posts/${id}` // post id
+                });
+                console.log("response:", response);
+            } catch (error) {
+                console.log("error:", error);
+                console.log("error response:", error.response.data);
+            } finally {
+                window.location.href = "/posts";
+            }
+        }
+    }
 
+    // === 로딩중 === //
     if (loading) { // 렌더링 이후에
         return <div>로딩중...</div>
     }
 
     const commentNumbers = renderPageNumbers(commentPage);
-
     const jwtUsername = localStorage.getItem("access") ? jwtDecode(localStorage.getItem("access")).username : null;
 
     return (
@@ -102,9 +124,17 @@ const PostDetail = () => {
             {/* 댓글 내용 부분*/}
             <section className={"post-content-section"}>
                 <PostContent {...post}/>
-                {post.email === jwtUsername && (
-                    <NavButton text={"수정하기"} navPath={`/posts/${id}/edit`} className={"post-edit-btn"}/>
-                )}
+                {post.email === jwtUsername &&
+                    (   <div className={"post-content-btn"}>
+                            <NavButton text={"수정하기"} navPath={`/posts/${id}/edit`} className={"post-edit-btn"}/>
+                            <button
+                                onClick={onDeletePost}
+                                className={"post-delete-btn"}>
+                                삭제하기
+                            </button>
+                        </div>
+                    )
+                }
             </section>
 
             <Line/>
@@ -137,7 +167,7 @@ const PostDetail = () => {
             </section>
 
             <section className={"comment-write-section"}>
-                {/* 로그인을 해야 댓글표시*/}
+                {/* 로그인을 해야 댓글작성 표시*/}
                 {auth.isLogged && <CreateComment />}
             </section>
         </div>
