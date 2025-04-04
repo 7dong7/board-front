@@ -58,8 +58,10 @@ const Login = () => {
             nav("/"); // 로그인 성공후 페이지 메인 페이지로 이동
         } catch (error) {
             console.log("error: ", error);
-            console.log("message: ", error.response.data.error);
-            setError(error.response.data.error);
+            if (error.response.data) {
+                console.log("message: ", error.response.data);
+                setError(error.response.data.message);
+            }
         }
     };
 

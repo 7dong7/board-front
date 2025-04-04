@@ -4,7 +4,9 @@ import './App.css'
 import TopNavigationBar from "./components/layout/TopNavigationBar.jsx";
 
 // 페이지
-import Notfound from "./pages/Notfound.jsx";
+import Notfound from "./pages/errors/Notfound.jsx"; // 에러 페이지: 잘못된 경로, 잘못된 요청
+import NotfoundMember from "./pages/errors/NotfoundMember.jsx"; // 존재하지 않는 회원, 탈퇴한 회원 조회
+
 import Login from "./pages/Login.jsx"; // 로그인 페이지
 import Posts from "./pages/Posts.jsx"; // 게시글 목록
 import PostDetail from "./pages/PostDetail.jsx"; // 게시글 내용
@@ -52,8 +54,9 @@ function App() {
                 <Routes>
                     <Route element={<NoHeaderLayout />}> {/* 헤더 네비게이션바가 없는 페이지 */}
                         <Route path={"/login"} element={<Login />}/> {/* 로그인 페이지*/}
-                        <Route path={"*"} element={<Notfound />}/> {/* 정의되지 않은 경로 */}
                         <Route path={"/oauth2/setting/handler"} element={<OAuth2Handler />} /> {/* OAuth2 로그인 처리 */}
+                        <Route path={"*"} element={<Notfound />}/> {/* 정의되지 않은 경로 */}
+                        <Route path={"/NotFoundMember"} element={<NotfoundMember />}/> {/* 이동시킬 경로*/}
                     </Route>
 
                     <Route element={<MainLayout />}> {/* 헤더 네비게이션바가 있는 페이지 */}

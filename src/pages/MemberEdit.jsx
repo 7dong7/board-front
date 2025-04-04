@@ -60,7 +60,7 @@ const MemberEdit = () => {
             localStorage.removeItem("verifyPassword");
             console.log("response:", response);
 
-            nav(`/posts`);
+            window.location.href = "/posts";
         } catch (error) {
             console.log("error:", error);
         }

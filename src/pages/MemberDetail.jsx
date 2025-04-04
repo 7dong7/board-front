@@ -3,7 +3,7 @@ import "./MemberDetail.css";
 
 // 훅
 import {useEffect, useState} from "react";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {usePublicApi} from "../api/PublicApi.jsx";
 
 // 컴포넌트
@@ -24,6 +24,7 @@ const MemberDetail = () => {
     const [member, setMember] = useState(); // 정보
     const [searchParams, setSearchParams] = useSearchParams(); // url 검색 조건
     const [isLoading, setIsLoading] = useState(true); // 로딩 상태
+    const nav = useNavigate();
 
 // ===== 이벤트 ===== //
     const getMemberDetail = async () => { // 사용자 정보 조회
@@ -48,10 +49,11 @@ const MemberDetail = () => {
                 commentSort: searchParams.get("commentSort") || "id",
                 commentDirection: searchParams.get("commentDirection") || "DESC"
             });
-            setMember(response.data);
+            setMember(response.data.data);
             setIsLoading(false);
         } catch (error) {
             console.error("error:", error);
+            nav("/NotFoundMember", {replace: true});
         }
     }
 
